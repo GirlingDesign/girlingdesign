@@ -279,7 +279,30 @@ a:hover { color: var(--aqua-text); }
 @media (min-width: 900px) { .team { grid-template-columns: 1fr 1fr; } }
 .profile { background: var(--white); border: 1px solid var(--line); border-top: 5px solid var(--green); border-radius: var(--radius); padding: 26px; }
 .profile__role { color: var(--aqua-text); font-weight: 700; margin-bottom: .8em; }
-
+.profile__photo { margin: -26px -26px 20px; overflow: hidden; border-radius: 3px 3px 0 0; }
+.profile__photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.profile__more h4 { margin: 1.2em 0 .5em; color: var(--navy); }
+.profile__more h5 { margin: 1em 0 .3em; color: var(--ink); font-size: 1rem; }
+.profile__list { margin: 0 0 1em; padding-left: 1.2em; }
+.profile__list li { margin: .2em 0; }
+.profile__timeline { list-style: none; padding: 0; margin: 0 0 1em; }
+.profile__timeline li { padding: 8px 0; border-top: 1px solid var(--line); }
+.profile__timeline li strong { display: block; color: var(--navy); }
+/* Read more / Read less: native <details>, works without JavaScript. */
+.profile__more > summary {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 18px; cursor: pointer;
+    font-weight: 700; color: var(--navy); background: var(--white); border: 2px solid var(--navy);
+    border-radius: 999px; list-style: none;
+}
+.profile__more > summary::-webkit-details-marker { display: none; }
+.profile__more > summary::after { content: ''; width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translate(-2px, -2px); transition: transform .2s ease; }
+.profile__more[open] > summary::after { transform: rotate(-135deg) translate(-2px, -2px); }
+.profile__more > summary:hover { background: var(--aqua-tint); }
+.profile__more-close { display: none; }
+.profile__more[open] .profile__more-open { display: none; }
+.profile__more[open] .profile__more-close { display: inline; }
+.profile__more[open] > summary { margin-bottom: 1em; }
+@media (prefers-reduced-motion: reduce) { .profile__more > summary::after { transition: none; } }
 /* ---- Gallery ------------------------------------------------------------ */
 
 .filter-bar { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 8px; }
