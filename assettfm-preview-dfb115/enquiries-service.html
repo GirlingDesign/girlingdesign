@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Service Enquiry | AssetTFM</title>
+  <!-- POSITIONAL: SEO title and description are draft text awaiting client review. -->
+  <meta name="description" content="Service enquiries for maintenance, repairs, inspections and service work at your property.">
+  <link rel="icon" type="image/svg+xml" href="images/symbol.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header data-global-header></header>
+  <div class="subnav-zone">
+    <nav class="section-subnav" aria-label="Enquiries">
+      <ul class="section-subnav__list">
+      <li><a href="enquiries.html">Enquiries overview</a></li>
+      <li><a href="enquiries-general.html">General Enquiry</a></li>
+      <li><a href="enquiries-service.html" aria-current="page">Service Enquiry</a></li>
+      <li><a href="enquiries-project.html">Project Enquiry</a></li>
+      </ul>
+    </nav>
+  </div>
+  <main id="main">
+    <section class="page-title-band" aria-labelledby="page-title">
+      <div class="content-container">
+        <p class="eyebrow">Enquiries</p>
+        <h1 id="page-title">Service Enquiry</h1>
+        <p class="page-title-band__lead">For maintenance, repairs, inspections and service work at your property.</p>
+      </div>
+    </section>
+    <section class="content-section" aria-labelledby="form-title">
+      <div class="content-container contact-layout">
+        <div class="contact-layout__details">
+          <p class="eyebrow">Enquiry form</p>
+          <h2 id="form-title">Send a service enquiry</h2>
+          <p><strong>Attendance note.</strong> Your preferred attendance date and time help us understand your availability. They are not a confirmed booking. AssetTFM will respond by email to discuss the request.</p>
+          <!-- CONFIRM: $200 call-out fee including GST, rebated if AssetTFM is awarded the work. Display only after the client confirms current policy. -->
+          <p class="pending-note">Call-out fee wording is awaiting client confirmation.</p>
+          <address>
+            AssetTFM<br>
+            689 Canterbury Road<br>
+            Surrey Hills VIC 3129
+          </address>
+        </div>
+        <form class="enquiry-form" action="https://example.invalid/replace-with-approved-form-endpoint" method="post" novalidate>
+          <p class="pending-note">This form is not yet connected for live submissions. Nothing entered here is sent.</p>
+          <div class="field-group">
+            <label for="service-name">Name <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="service-name" name="name" type="text" autocomplete="name" aria-required="true" aria-describedby="service-name-error">
+            <span id="service-name-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-email">Email <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="service-email" name="email" type="email" autocomplete="email" aria-required="true" aria-describedby="service-email-error">
+            <span id="service-email-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-company">Company (optional)</label>
+            <input id="service-company" name="company" type="text" autocomplete="organization" aria-describedby="service-company-error">
+            <span id="service-company-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-area">Service area <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <select id="service-area" name="area" aria-required="true" aria-describedby="service-area-error">
+              <option value="">Please choose</option>
+              <option>Domestic</option>
+              <option>Commercial</option>
+              <option>Government</option>
+              <option>Corporate</option>
+              <option>Public and Corporate Housing</option>
+              <option>Owners Corporation</option>
+            </select>
+            <span id="service-area-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <fieldset aria-describedby="service-budget-set-error">
+              <legend>Have you set a budget for this work? <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></legend>
+              <label class="option-row"><input type="radio" name="budget-set" value="Yes" aria-required="true"> Yes</label>
+              <label class="option-row"><input type="radio" name="budget-set" value="No" aria-required="true"> No</label>
+            </fieldset>
+            <span id="service-budget-set-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-plans">What is the status of your plans? <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <select id="service-plans" name="plans" aria-required="true" aria-describedby="service-plans-error">
+              <option value="">Please choose</option>
+              <option>I have plans</option>
+              <option>I do not have plans</option>
+              <option>I need help with plans</option>
+              <option>Plans are in progress</option>
+            </select>
+            <span id="service-plans-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-address">Address of works <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="service-address" name="address" type="text" autocomplete="street-address" aria-required="true" aria-describedby="service-address-error">
+            <span id="service-address-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-date">Preferred attendance date <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="service-date" name="date" type="date" aria-required="true" aria-describedby="service-date-error">
+            <span id="service-date-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-time">Preferred attendance time or window <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="service-time" name="time" type="text" aria-required="true" aria-describedby="service-time-error">
+            <span id="service-time-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="service-work">Tell us about the work <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <textarea id="service-work" name="work" aria-required="true" aria-describedby="service-work-hint service-work-error"></textarea>
+            <p id="service-work-hint" class="field-hint">Include the issue, work required and any useful background.</p>
+            <span id="service-work-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label class="option-row"><input id="service-consent" name="privacy-consent" type="checkbox" aria-required="true" aria-describedby="service-consent-error"> <span>I have read and agree to the <a href="privacy.html">Privacy Policy</a>. <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></span></label>
+            <span id="service-consent-error" class="field-error-msg" aria-live="polite"></span>
+            <!-- CONFIRM: privacy-consent wording is not approved copy. -->
+          </div>
+          <p class="form-privacy-note">Phase 1 layout only. Validation messages, submission behaviour and the form endpoint are added in a later, separately authorised step.</p>
+          <div>
+            <button class="button" type="button" data-form-action="placeholder">Send Service Enquiry</button>
+          </div>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer data-global-footer></footer>
+  <script src="app.js"></script>
+</body>
+</html>

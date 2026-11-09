@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Project Enquiry | AssetTFM</title>
+  <!-- POSITIONAL: SEO title and description are draft text awaiting client review. -->
+  <meta name="description" content="Project enquiries for renovations, extensions, fit-outs, refurbishments and larger planned building works.">
+  <link rel="icon" type="image/svg+xml" href="images/symbol.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header data-global-header></header>
+  <div class="subnav-zone">
+    <nav class="section-subnav" aria-label="Enquiries">
+      <ul class="section-subnav__list">
+      <li><a href="enquiries.html">Enquiries overview</a></li>
+      <li><a href="enquiries-general.html">General Enquiry</a></li>
+      <li><a href="enquiries-service.html">Service Enquiry</a></li>
+      <li><a href="enquiries-project.html" aria-current="page">Project Enquiry</a></li>
+      </ul>
+    </nav>
+  </div>
+  <main id="main">
+    <section class="page-title-band" aria-labelledby="page-title">
+      <div class="content-container">
+        <p class="eyebrow">Enquiries</p>
+        <h1 id="page-title">Project Enquiry</h1>
+        <p class="page-title-band__lead">Tell us about your planned works and we will review the information you provide.</p>
+      </div>
+    </section>
+    <section class="content-section" aria-labelledby="form-title">
+      <div class="content-container contact-layout">
+        <div class="contact-layout__details">
+          <p class="eyebrow">Enquiry form</p>
+          <h2 id="form-title">Send a project enquiry</h2>
+          <p>This form is suited to renovations, extensions, fit-outs, refurbishments and larger building projects.</p>
+          <!-- CONFIRM: what response or pricing commitment "Project Enquiry" implies. Public and Corporate Housing added to the service-area list to match the six-sector brief. -->
+          <address>
+            AssetTFM<br>
+            689 Canterbury Road<br>
+            Surrey Hills VIC 3129
+          </address>
+        </div>
+        <form class="enquiry-form" action="https://example.invalid/replace-with-approved-form-endpoint" method="post" novalidate>
+          <p class="pending-note">This form is not yet connected for live submissions. Nothing entered here is sent.</p>
+          <div class="field-group">
+            <label for="project-name">Name <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="project-name" name="name" type="text" autocomplete="name" aria-required="true" aria-describedby="project-name-error">
+            <span id="project-name-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="project-email">Email <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="project-email" name="email" type="email" autocomplete="email" aria-required="true" aria-describedby="project-email-error">
+            <span id="project-email-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="project-company">Company (optional)</label>
+            <input id="project-company" name="company" type="text" autocomplete="organization" aria-describedby="project-company-error">
+            <span id="project-company-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="project-area">Service area <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <select id="project-area" name="area" aria-required="true" aria-describedby="project-area-error">
+              <option value="">Please choose</option>
+              <option>Domestic</option>
+              <option>Commercial</option>
+              <option>Government</option>
+              <option>Corporate</option>
+              <option>Public and Corporate Housing</option>
+              <option>Owners Corporation</option>
+            </select>
+            <span id="project-area-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="project-budget">Estimated project budget <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <select id="project-budget" name="budget" aria-required="true" aria-describedby="project-budget-error">
+              <option value="">Please choose</option>
+              <option>Not sure yet</option>
+              <option>Under $25,000</option>
+              <option>$25,000 to $50,000</option>
+              <option>$50,000 to $100,000</option>
+              <option>$100,000 to $250,000</option>
+              <option>$250,000 to $500,000</option>
+              <option>$500,000 to $1 million</option>
+              <option>$1 million+</option>
+            </select>
+            <span id="project-budget-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="project-plans">What is the status of your plans? <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <select id="project-plans" name="plans" aria-required="true" aria-describedby="project-plans-error">
+              <option value="">Please choose</option>
+              <option>I have plans</option>
+              <option>I do not have plans</option>
+              <option>I need help with plans</option>
+              <option>Plans are in progress</option>
+            </select>
+            <span id="project-plans-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="project-about">Tell us about the project <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <textarea id="project-about" name="about" aria-required="true" aria-describedby="project-about-hint project-about-error"></textarea>
+            <p id="project-about-hint" class="field-hint">Describe the work, property and any timing or planning information that may be useful.</p>
+            <span id="project-about-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label class="option-row"><input id="project-consent" name="privacy-consent" type="checkbox" aria-required="true" aria-describedby="project-consent-error"> <span>I have read and agree to the <a href="privacy.html">Privacy Policy</a>. <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></span></label>
+            <span id="project-consent-error" class="field-error-msg" aria-live="polite"></span>
+            <!-- CONFIRM: privacy-consent wording is not approved copy. -->
+          </div>
+          <p class="form-privacy-note">Phase 1 layout only. Validation messages, submission behaviour and the form endpoint are added in a later, separately authorised step.</p>
+          <div>
+            <button class="button" type="button" data-form-action="placeholder">Send Project Enquiry</button>
+          </div>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer data-global-footer></footer>
+  <script src="app.js"></script>
+</body>
+</html>

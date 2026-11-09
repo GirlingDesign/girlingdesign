@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>General Enquiry | AssetTFM</title>
+  <!-- POSITIONAL: SEO title and description are draft text awaiting client review. -->
+  <meta name="description" content="General questions and business enquiries to AssetTFM.">
+  <link rel="icon" type="image/svg+xml" href="images/symbol.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header data-global-header></header>
+  <div class="subnav-zone">
+    <nav class="section-subnav" aria-label="Enquiries">
+      <ul class="section-subnav__list">
+      <li><a href="enquiries.html">Enquiries overview</a></li>
+      <li><a href="enquiries-general.html" aria-current="page">General Enquiry</a></li>
+      <li><a href="enquiries-service.html">Service Enquiry</a></li>
+      <li><a href="enquiries-project.html">Project Enquiry</a></li>
+      </ul>
+    </nav>
+  </div>
+  <main id="main">
+    <section class="page-title-band" aria-labelledby="page-title">
+      <div class="content-container">
+        <p class="eyebrow">Enquiries</p>
+        <h1 id="page-title">General Enquiry</h1>
+        <p class="page-title-band__lead">For general questions or enquiries that are not yet a specific service request or project enquiry.</p>
+      </div>
+    </section>
+    <section class="content-section" aria-labelledby="form-title">
+      <div class="content-container contact-layout">
+        <div class="contact-layout__details">
+          <p class="eyebrow">Enquiry form</p>
+          <h2 id="form-title">Send a general enquiry</h2>
+          <p>If you need maintenance, repairs or attendance at a property, use <a href="enquiries-service.html">Service Enquiry</a>. If you are planning a larger project, renovation, refurbishment or fit-out, use <a href="enquiries-project.html">Project Enquiry</a>.</p>
+          <address>
+            AssetTFM<br>
+            689 Canterbury Road<br>
+            Surrey Hills VIC 3129
+          </address>
+        </div>
+        <form class="enquiry-form" action="https://example.invalid/replace-with-approved-form-endpoint" method="post" novalidate>
+          <p class="pending-note">This form is not yet connected for live submissions. Nothing entered here is sent.</p>
+          <div class="field-group">
+            <label for="general-name">Name <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="general-name" name="name" type="text" autocomplete="name" aria-required="true" aria-describedby="general-name-error">
+            <span id="general-name-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="general-email">Email <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <input id="general-email" name="email" type="email" autocomplete="email" aria-required="true" aria-describedby="general-email-error">
+            <span id="general-email-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="general-company">Company (optional)</label>
+            <input id="general-company" name="company" type="text" autocomplete="organization" aria-describedby="general-company-error">
+            <span id="general-company-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <fieldset aria-describedby="general-contact-type-error">
+              <legend>Are you contacting us as a client or contractor? <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></legend>
+              <label class="option-row"><input type="radio" name="contact-type" value="Client" aria-required="true"> Client</label>
+              <label class="option-row"><input type="radio" name="contact-type" value="Contractor" aria-required="true"> Contractor</label>
+            </fieldset>
+            <span id="general-contact-type-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label for="general-enquiry">Enquiry <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></label>
+            <textarea id="general-enquiry" name="enquiry" aria-required="true" aria-describedby="general-enquiry-hint general-enquiry-error"></textarea>
+            <p id="general-enquiry-hint" class="field-hint">How can we help?</p>
+            <span id="general-enquiry-error" class="field-error-msg" aria-live="polite"></span>
+          </div>
+          <div class="field-group">
+            <label class="option-row"><input id="general-consent" name="privacy-consent" type="checkbox" aria-required="true" aria-describedby="general-consent-error"> <span>I have read and agree to the <a href="privacy.html">Privacy Policy</a>. <span aria-hidden="true">*</span><span class="visually-hidden"> (required)</span></span></label>
+            <span id="general-consent-error" class="field-error-msg" aria-live="polite"></span>
+            <!-- CONFIRM: privacy-consent wording is not approved copy. -->
+          </div>
+          <p class="form-privacy-note">Phase 1 layout only. Validation messages, submission behaviour and the form endpoint are added in a later, separately authorised step.</p>
+          <div>
+            <button class="button" type="button" data-form-action="placeholder">Send Enquiry</button>
+          </div>
+          <p class="form-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer data-global-footer></footer>
+  <script src="app.js"></script>
+</body>
+</html>
