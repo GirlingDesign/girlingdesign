@@ -131,7 +131,13 @@ a:hover { color: var(--aqua-text); }
 
 /* ---- Page subnavigation zone (repeatable block, local links) ----------- */
 
-.subnav-zone { background: var(--surface); border-bottom: 1px solid var(--line); }
+/* SUB MENU COLOUR: change this one line to switch.
+     --subnav-bg: var(--aqua);    blue (current). navy-deep link text is 5.9:1 on it.
+     --subnav-bg: var(--green);   green (previous). navy-deep link text is 5.0:1 on it.
+   Link text is navy-deep on both (white fails 4.5:1 on either; plain navy fails on green).
+   The current-page marker and focus ring are navy because a green or aqua marker would vanish on its own colour. */
+:root { --subnav-bg: var(--aqua); }
+.subnav-zone { background: var(--subnav-bg); border-bottom: 1px solid rgba(21, 38, 74, .25); }
 .section-subnav { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; }
 .section-subnav__list {
     list-style: none; margin: 0; padding: 8px 0;
@@ -139,15 +145,16 @@ a:hover { color: var(--aqua-text); }
 }
 .section-subnav__list a {
     display: block; padding: 10px 12px; border-radius: var(--radius);
-    color: var(--navy); text-decoration: none; font-size: .95rem; font-weight: 500;
+    color: var(--navy-deep); text-decoration: none; font-size: .95rem; font-weight: 500;
 }
 .section-subnav__list a:hover { background: var(--white); color: var(--navy); }
-.section-subnav__list a[aria-current] { background: var(--white); font-weight: 700; box-shadow: inset 3px 0 0 var(--green); }
+.section-subnav__list a:focus-visible { outline-color: var(--navy-deep); }
+.section-subnav__list a[aria-current] { background: var(--white); color: var(--navy); font-weight: 700; box-shadow: inset 3px 0 0 var(--navy); }
 
 @media (min-width: 900px) {
     .section-subnav__list { flex-direction: row; flex-wrap: wrap; gap: 4px; padding: 6px 0; }
     .section-subnav__list a { padding: 8px 14px; }
-    .section-subnav__list a[aria-current] { box-shadow: inset 0 -3px 0 var(--green); }
+    .section-subnav__list a[aria-current] { box-shadow: inset 0 -3px 0 var(--navy); }
 }
 
 /* ---- Page opening ------------------------------------------------------- */
@@ -169,6 +176,36 @@ a:hover { color: var(--aqua-text); }
 .page-opening h1 { color: var(--white); max-width: 18ch; }
 .page-opening p { color: #eef3fb; font-size: 1.15rem; }
 .page-opening .eyebrow { color: #8fe3f0; }
+/* Interior pages: same image-and-fade opening, compact height, aqua rule kept from the old title band. */
+.page-opening--inner { border-bottom: 6px solid var(--aqua); }
+.page-opening--inner .page-opening__content { padding: 52px 0 48px; }
+.page-opening--inner h1 { max-width: none; margin-bottom: .35em; }
+.page-opening--inner .page-title-band__lead { max-width: 60ch; margin: 0; }
+@media (min-width: 900px) { .page-opening--inner .page-opening__content { padding: 76px 0 72px; } }
+/* Home page: round arrow buttons between sections, and back to top at the end.
+   Blue (aqua) circle with a white arrow (2.5:1; navy-deep was 5.9:1), no outline. To use navy instead, set --jump-bg to var(--navy) and --jump-ink to var(--white). */
+:root { --jump-bg: var(--aqua); --jump-ink: var(--white); }
+.section-jump { display: flex; justify-content: center; padding-top: 40px; }
+.section-jump__button {
+    display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%;
+    background: var(--jump-bg); color: var(--jump-ink); border: 0; text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
+}
+.section-jump__button:hover { background: var(--navy); color: var(--white); }
+.section-jump--on-dark { padding-top: 36px; }
+.section-jump--on-dark .section-jump__button:hover { background: var(--white); color: var(--navy-deep); }
+/* Home hero arrow: hidden for 3 s, then fades up, so it is not the first thing the eye lands on. Pure CSS: with no
+   animation support, with reduced motion, or when a keyboard user tabs to it, it is simply shown. */
+@keyframes jump-fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.section-jump--delayed { animation: jump-fade-up .9s ease-out 3s both; }
+.section-jump--delayed:focus-within { animation: none; }
+/* Other arrows: waiting until app.js reveals them (3 s after the visitor reaches their section). */
+.section-jump.is-enhanced { transition: opacity .9s ease-out, transform .9s ease-out; }
+.section-jump.is-waiting { opacity: 0; transform: translateY(10px); }
+@media (prefers-reduced-motion: reduce) { .section-jump.is-enhanced { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .section-jump--delayed { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .section-jump__button { transition: none; } }
+@media print { .section-jump { display: none; } }
 .action-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
 
 @media (min-width: 900px) { .page-opening__content { padding: 110px 0 120px; } }
@@ -200,6 +237,12 @@ a:hover { color: var(--aqua-text); }
 .content-section { padding: 56px 0; }
 .content-section--muted { background: var(--surface); }
 .content-section--tint { background: var(--aqua-tint); }
+/* Mid tint of the brand aqua (about 30% strength), used sparingly. Navy text is 9:1 on it. The aqua-text eyebrow and the
+   aqua hover are only about 3.8:1 here, so inside this section they switch to navy. Cards stay white. */
+:root { --aqua-mid: #b3e9f1; }
+.content-section--tint-mid { background: var(--aqua-mid); }
+.content-section--tint-mid .eyebrow { color: var(--navy); }
+.content-section--tint-mid a:hover { color: var(--navy-deep); }
 .section-intro { font-size: 1.1rem; color: var(--ink-muted); }
 
 .split-feature { display: grid; gap: 28px; align-items: center; }
@@ -215,6 +258,17 @@ a:hover { color: var(--aqua-text); }
 }
 .service-card:hover { transform: translateY(-2px); border-color: var(--aqua); color: var(--ink); }
 .service-card__icon { width: 56px; height: 56px; margin-bottom: 14px; }
+/* Services page tiles: brand green background. The icon is already a green circle, so it gets a soft white glow to
+   lift it off the tile. Text is navy-deep (5.0:1 on green; plain navy is 4.1:1, white is 3.0:1). Underline and focus
+   ring are white and navy-deep because aqua is nearly invisible on green. */
+.service-card--green { background: var(--green); border-color: transparent; color: var(--navy-deep); }
+.service-card--green:hover { border-color: var(--white); color: var(--navy-deep); }
+.service-card--green .service-card__icon { filter: drop-shadow(0 0 5px rgba(255, 255, 255, .9)) drop-shadow(0 0 14px rgba(255, 255, 255, .5)); }
+.service-card.service-card--green p { color: var(--navy-deep); }
+.service-card.service-card--green h3 { color: var(--white); }   /* white on #00ad52 is 2.96:1, a hair under the 3:1 large-text minimum (operator choice) */
+.service-card--green .text-link { color: var(--navy-deep); border-bottom-color: var(--white); }
+.service-card--green:hover .text-link { color: var(--navy-deep); }
+.service-card--green:focus-visible { outline-color: var(--navy-deep); }
 .service-card h3 { margin-bottom: .35em; }
 .service-card p { color: var(--ink-muted); flex: 1; }
 .service-card .text-link { align-self: flex-start; }
@@ -360,6 +414,16 @@ a:hover { color: var(--aqua-text); }
 @media (min-width: 900px) { .site-footer__inner { grid-template-columns: 1.2fr 2fr; } .site-footer__legal { grid-column: 1 / -1; } }
 .site-footer a { color: #dbe5f5; }
 .site-footer a:hover { color: #8fe3f0; }
+/* Footer links carry no underline; hover is a colour change only. */
+.site-footer a { text-decoration: none; }
+/* "Start an enquiry": pill button (green, navy-deep text 5.0:1). Specificity beats the footer link colour rule above. */
+.site-footer .site-footer__cta {
+    display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 10px 24px;
+    border-radius: 999px; background: var(--green); color: var(--navy-deep); font-weight: 700;
+    transition: background-color .15s;
+}
+.site-footer .site-footer__cta:hover { background: #00c25c; color: var(--navy-deep); }
+@media (prefers-reduced-motion: reduce) { .site-footer .site-footer__cta { transition: none; } }
 .site-footer__business { font-size: 1.4rem; font-weight: 800; color: var(--white); margin-bottom: .2em; }
 .site-footer__line { color: #8fe3f0; font-weight: 600; }
 .site-footer__address { font-style: normal; margin-bottom: 1em; }
@@ -367,7 +431,14 @@ a:hover { color: var(--aqua-text); }
 .site-footer__heading { font-size: .85rem; text-transform: uppercase; letter-spacing: .1em; color: var(--white); margin-bottom: .8em; }
 .site-footer__group ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
 .site-footer__legal { border-top: 1px solid rgba(255, 255, 255, .2); padding-top: 20px; font-size: .9rem; }
+/* The brand name AssetTFM is bold in running text. Headings and buttons are already bold, so they keep their own weight. */
+.brand-name { font-weight: 700; }
+h1 .brand-name, h2 .brand-name, h3 .brand-name, h4 .brand-name, .button .brand-name, .site-footer__business .brand-name { font-weight: inherit; }
+.site-footer__legal { display: flex; align-items: center; gap: 16px; }
 .site-footer__legal p { max-width: none; margin-bottom: .6em; }
+.site-footer__legal-text a { display: inline-block; }
+/* The symbol is a navy circle on a navy footer, so it gets a soft glow, in the brand aqua (the green tile icons use white). */
+.site-footer__mark { flex: none; width: 48px; height: 48px; filter: drop-shadow(0 0 5px rgba(0, 179, 204, .95)) drop-shadow(0 0 14px rgba(0, 179, 204, .55)); }
 .site-footer__social { list-style: none; padding: 0; display: flex; gap: 14px; margin: 14px 0 0; }
 
 /* ---- Print ---------------------------------------------------------------- */

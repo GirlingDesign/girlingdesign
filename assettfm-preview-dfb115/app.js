@@ -96,6 +96,16 @@ function el(tag, className, text) {
     return node;
 }
 
+/* A paragraph of fixed trusted text with the brand name in bold. DOM methods only, no innerHTML. */
+function brandParagraph(className, text) {
+    const p = el('p', className);
+    text.split(SITE.name).forEach((piece, i) => {
+        if (i > 0) p.append(el('span', 'brand-name', SITE.name));
+        if (piece) p.append(document.createTextNode(piece));
+    });
+    return p;
+}
+
 function link(label, path, className) {
     const a = el('a', className, label);
     a.href = href(path);
@@ -193,8 +203,8 @@ function renderFooter() {
         address.append(document.createTextNode(line));
     });
     about.append(address);
-    about.append(el('p', 'site-footer__contact', SITE.contactNote));
-    about.append(link('Start an enquiry', 'enquiries.html', 'text-link text-link--light'));
+    about.append(brandParagraph('site-footer__contact', SITE.contactNote));
+    about.append(link('Start an enquiry', 'enquiries.html', 'site-footer__cta'));
 
     if (SITE.social.length > 0) {
         const social = el('ul', 'site-footer__social');
@@ -225,8 +235,16 @@ function renderFooter() {
     });
 
     const legal = el('div', 'site-footer__legal');
-    legal.append(el('p', null, SITE.legal));
-    legal.append(link(PRIVACY_LINK[0], PRIVACY_LINK[1], 'site-footer__privacy'));
+    // Symbol sits to the left of the legal line. Decorative: the business name is already in the text beside it.
+    const mark = el('img', 'site-footer__mark');
+    mark.src = href('images/symbol.svg');
+    mark.alt = '';
+    mark.width = 48;
+    mark.height = 48;
+    const legalText = el('div', 'site-footer__legal-text');
+    legalText.append(brandParagraph(null, SITE.legal));
+    legalText.append(link(PRIVACY_LINK[0], PRIVACY_LINK[1], 'site-footer__privacy'));
+    legal.append(mark, legalText);
 
     inner.append(about, groups, legal);
     target.replaceChildren(inner);
@@ -297,9 +315,48 @@ function initProcessSteps() {
     });
 }
 
+/* ---- Home page: section arrows appear in sequence (progressive enhancement) ---- */
+
+// Default (no JS, reduced motion, or no IntersectionObserver): every arrow is visible. With motion allowed, each arrow
+// (except the hero one, which is delayed in CSS) stays hidden until 3 seconds after the visitor arrives at its section,
+// whether they clicked the previous arrow or scrolled there. A keyboard user who tabs to a hidden arrow gets it at once.
+const JUMP_REVEAL_DELAY_MS = 3000;
+
+function initJumpReveal() {
+    const jumps = Array.from(document.querySelectorAll('.section-jump:not(.section-jump--delayed)'));
+    if (jumps.length === 0) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    jumps.forEach((jump) => {
+        const section = jump.closest('section');
+        if (!section) return;
+
+        jump.classList.add('is-enhanced', 'is-waiting');
+        let timer = null;
+
+        function reveal() {
+            window.clearTimeout(timer);
+            jump.classList.remove('is-waiting');
+            observer.disconnect();
+        }
+
+        // "Arrived" = any part of the section is in the upper half of the viewport.
+        const observer = new IntersectionObserver((entries) => {
+            if (entries.some((entry) => entry.isIntersecting) && timer === null) {
+                timer = window.setTimeout(reveal, JUMP_REVEAL_DELAY_MS);
+            }
+        }, { rootMargin: '0px 0px -50% 0px', threshold: 0 });
+        observer.observe(section);
+
+        jump.addEventListener('focusin', reveal);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     renderHeader();
     renderFooter();
     initGalleryFilter();
     initProcessSteps();
+    initJumpReveal();
 });
