@@ -7,7 +7,7 @@
   <title>Make your brand AI-ready | Girling Design</title>
   <meta name="description" content="A customised BRND Standard for your business: plain-text files that people and AI tools can both read. From $12,987 + GST.">
   <style>
-    :root { --bg: #000; --fg: #fff; --muted: #c9c9d3; --line: rgba(255,255,255,.22); --glass: rgba(255,255,255,.07); --blue: #65b4e0; --sand: #d4c1a8; --ink: #0b2a3d; --inner: min(78rem, 100vw - 2.5rem); }
+    :root { --bg: #000; --fg: #fff; --muted: #c9c9d3; --line: rgba(255,255,255,.22); --glass: rgba(255,255,255,.07); --blue: #65b4e0; --sand: #d4c1a8; --ink: #0b2a3d; --inner: min(78rem, 100vw - 2.5rem); --space: 4.5rem; }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.55; }
@@ -23,29 +23,59 @@
     .top { position: relative; z-index: 2; padding: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
     .top img { width: 9rem; max-width: 45vw; height: auto; display: block; }
     .top a.back { font-size: .85rem; color: var(--muted); }
-    .hero__body { position: relative; z-index: 2; flex: 1; display: flex; align-items: center; padding: 2rem 0 4rem; text-shadow: 0 0 18px #000, 0 0 6px rgba(0,0,0,.8); }
-    .hero__copy { max-width: 34rem; }
-    .presented { margin: 0 0 1.25rem; display: flex; align-items: center; gap: 1.1rem; font-size: .85rem; color: var(--muted); }
-    .presented img { height: 6.5rem; width: auto; display: block; }
-    h1 { margin: 0 0 1rem; font-size: clamp(2.25rem, 6vw, 4rem); line-height: 1.05; }
+    .hero__logos { position: relative; z-index: 2; }
+    .hero__center { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 1rem 0 4rem; text-shadow: 0 0 24px #000, 0 0 8px rgba(0,0,0,.85); }
+    .presented { margin: 0 0 1.25rem; color: var(--fg); }
+    .presented__logos { display: flex; align-items: center; gap: 2.75rem; padding: .75rem 0 2.5rem; }
+    .presented__text { margin: 0; font-size: 1rem; line-height: 1.35; }
+    .presented__lines { display: grid; gap: .4rem; }
+    .presented__own { font-size: .85rem; color: var(--muted); }
+    section[aria-labelledby="get"] .postcard:last-of-type { margin-bottom: 0; }
+    .band .postcard + .sub { margin: calc(1.5rem - var(--space)) 0 var(--space); }
+    .band h2 + .steps, .band h2 + .two, .band h2 + .invest { margin-top: 2rem; }
+    .tiles2 { display: grid; gap: 2.75rem; }
+    @media (min-width: 52.01rem) { .tiles2 { grid-template-columns: 1fr 1fr; } }
+    .tile { padding: 2rem; border-radius: 1rem; background: var(--sand); color: var(--ink); }
+    .tile h3 { margin: 0 0 1rem; font-size: 1.15rem; line-height: 1.3; }
+    .tile p { margin: 0 0 .9rem; font-size: 1rem; line-height: 1.55; }
+    .tile p:last-child { margin-bottom: 0; }
+    .tile .tile__own { font-size: .9rem; }
+    .band .tile h3, .band .tile strong { color: var(--ink); }
+    .behind { max-width: 44rem; display: grid; gap: .8rem; }
+    .behind p { margin: 0; font-size: 1.05rem; color: var(--muted); }
+    .behind strong { color: var(--fg); }
+    .behind .behind__own { font-size: .9rem; }
+    .presented__logos img { height: 5.25rem; width: auto; display: block; }
+    .presented__logos img.presented__std { height: 3.75rem; }
+    h1 { margin: 0 0 1rem; font-size: clamp(2.75rem, 8.5vw, 6.25rem); line-height: 1.02; letter-spacing: -.01em; }
     .lead { margin: 0 0 .9rem; font-size: 1.05rem; color: var(--muted); }
-    .lead--strong { font-size: 1.5rem; font-weight: 700; color: var(--fg); margin-bottom: .6rem; }
-    .hero__cta { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; }
+    .lead--strong { font-size: clamp(1.25rem, 2.4vw, 1.75rem); font-weight: 700; color: var(--fg); margin-bottom: .6rem; }
+    .hero__cta { margin-top: 1.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem 2rem; text-align: left; }
     .price { font-size: 1.75rem; font-weight: 700; line-height: 1.1; }
     .price small { display: block; margin-top: .2rem; font-size: .8rem; font-weight: 400; color: var(--muted); }
     .btn { display: inline-block; padding: .8rem 1.7rem; font: inherit; font-weight: 600; color: #000; background: #fff; border: 0; border-radius: 999px; text-decoration: none; cursor: pointer; text-shadow: none; }
     .btn--ghost { color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.5); }
 
     /* sections */
-    section.band { padding: 4rem 0 0; }
+    section.band { padding: var(--space) 0 0; }
     .band h2 { margin: 0 0 .5rem; font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; }
     .band .sub { margin: 0 0 2rem; max-width: 40rem; color: var(--muted); }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    /* one heading colour for the whole page: the blue of the rounded blocks (9.2:1 on black) */
+    section[aria-labelledby] .kicker, .band h2, .enquire h2, .postcard__text h3, .card h3, .step h3, .step::before, .behind strong { color: var(--blue); }
+    .intro { padding-top: var(--space); }
+    .intro__grid { display: grid; gap: 3rem 5rem; align-items: center; }
+    @media (min-width: 52.01rem) { .intro__grid { grid-template-columns: 1.15fr 1fr; } }
+    .intro__text { max-width: 46rem; }
+    .intro__video { justify-self: center; width: 100%; }
+    .intro__cta { margin: 1.75rem 0 0; }
+    .intro__text p { margin: 0 0 1.1rem; font-size: 1.2rem; line-height: 1.6; color: var(--muted); }
+    .intro__for strong { color: var(--fg); }
     .kicker { margin: 0 0 .5rem; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
     .draft { display: inline-block; margin-left: .4rem; padding: 0 .45rem; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: #000; background: #ffd666; border-radius: 999px; vertical-align: middle; font-weight: 600; }
 
     /* postcards */
-    .postcard { display: grid; gap: 1.5rem 2rem; align-items: start; margin-bottom: 1.75rem; }
+    .postcard { display: grid; gap: 2.5rem 4rem; align-items: start; margin-bottom: var(--space); }
     @media (min-width: 52.01rem) { .postcard { grid-template-columns: minmax(14rem, 1fr) 4fr; } .postcard--flip { grid-template-columns: 4fr minmax(14rem, 1fr); } .postcard--flip .postcard__text { order: 2; } }
     .pc-clip { overflow: hidden; }
     .pc-clip.is-clipped { -webkit-mask-image: linear-gradient(#000 calc(100% - 3.5rem), transparent); mask-image: linear-gradient(#000 calc(100% - 3.5rem), transparent); }
@@ -68,32 +98,26 @@
     .ledger li:nth-child(n+4) { opacity: .6; }
     .ledger__tag { font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .6rem; border-radius: 999px; border: 1px solid rgba(11,42,61,.5); }
     .ledger__now .ledger__tag { background: var(--ink); color: var(--blue); border-color: var(--ink); }
-    .pairs { display: grid; gap: .8rem; }
-    .pair__name { display: block; margin-bottom: .2rem; font-size: .8rem; font-weight: 600; }
-    .pair__row { display: grid; grid-template-columns: 1.6rem 1fr 2.6rem; align-items: center; gap: .5rem; font-size: .75rem; }
-    .pair__row + .pair__row { margin-top: .25rem; }
-    .pair__who { font-weight: 700; }
-    .pair .dial__bar { height: .45rem; }
-    .dial__bar i.alt { background: transparent; border: 2px solid var(--ink); }
-    .pair__legend { margin: 1rem 0 0; font-size: .75rem; line-height: 1.4; }
     .dial { display: grid; grid-template-columns: 9.5rem 1fr 2.6rem; align-items: center; gap: .75rem; font-size: .85rem; }
     .dial__name { font-weight: 600; }
     .dial__bar { position: relative; height: .55rem; border-radius: 999px; background: rgba(11,42,61,.18); }
     .dial__bar::before { content: ""; position: absolute; left: 50%; top: -.2rem; bottom: -.2rem; width: 1px; background: rgba(11,42,61,.5); }
     .dial__bar i { position: absolute; top: 0; bottom: 0; border-radius: 999px; background: var(--ink); }
+    .postcard__block--sand .dial__bar::before { display: none; }
     .dial__val { text-align: right; font-variant-numeric: tabular-nums; }
     @media (max-width: 40rem) { .dial { grid-template-columns: 7rem 1fr 2.4rem; font-size: .8rem; } }
 
     /* steps */
-    .steps { display: grid; gap: 1rem; counter-reset: s; }
+    .steps { display: grid; gap: 2.75rem; counter-reset: s; }
     @media (min-width: 52.01rem) { .steps { grid-template-columns: repeat(3, 1fr); } }
-    .step { padding: 1.5rem; border-radius: 1rem; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+    .step { padding: 1.75rem; border-radius: 1rem; background: var(--blue); color: var(--ink); }
     .step::before { counter-increment: s; content: counter(s); display: block; margin-bottom: .75rem; font-size: 2rem; font-weight: 700; line-height: 1; }
     .step h3 { margin: 0 0 .4rem; font-size: 1rem; }
-    .step p { margin: 0; font-size: .9rem; color: var(--muted); }
+    .step p { margin: 0; font-size: .95rem; color: var(--ink); }
+    .band .step h3, .band .step::before { color: var(--ink); }
 
     /* promise cards */
-    .two { display: grid; gap: 1rem; }
+    .two { display: grid; gap: 2.75rem; }
     @media (min-width: 52.01rem) { .two { grid-template-columns: 1fr 1fr; } }
     .card { padding: 1.5rem; border-radius: 1rem; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
     .card--wide { grid-column: 1 / -1; }
@@ -103,7 +127,7 @@
     .card p { margin: 0; font-size: .92rem; color: var(--muted); }
 
     /* investment band */
-    .invest { display: grid; gap: 1.5rem; align-items: center; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: 1rem; background: var(--sand); color: var(--ink); }
+    .invest { display: grid; gap: 3.5rem; align-items: center; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: 1rem; background: var(--sand); color: var(--ink); }
     @media (min-width: 52.01rem) { .invest { grid-template-columns: 1.2fr 1fr 1fr; } }
     .invest .price { font-size: clamp(2rem, 4vw, 3rem); }
     .invest .price small { color: var(--ink); opacity: .75; }
@@ -113,11 +137,9 @@
     .video { margin-top: 1rem; padding: 1.25rem 1.5rem; border-radius: 1rem; border: 1px dashed var(--line); color: var(--muted); font-size: .9rem; }
 
     /* enquiry */
-    .enquire { padding: 5rem 0; }
-    .enquire__grid { display: grid; gap: 2.5rem; align-items: start; }
-    @media (min-width: 52.01rem) { .enquire__grid { grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem); gap: 4rem; } }
-    .enquire__video { order: -1; }
-    @media (min-width: 52.01rem) { .enquire__video { order: 0; position: sticky; top: 1.5rem; } }
+    .enquire { padding: var(--space) 0 calc(var(--space) * 1.5); }
+    .enquire__grid { display: grid; gap: 2.5rem; max-width: 40rem; margin: 0 auto; }
+    
     .enquire h2 { font-size: 1.75rem; margin: 0 0 .5rem; }
     .enquire p.sub { margin: 0 0 1.5rem; color: var(--muted); }
     .vframe { position: relative; width: min(100%, 21rem); margin: 0 auto; aspect-ratio: 9 / 16; border-radius: 1rem; overflow: hidden; border: 1px dashed var(--line); background: var(--glass); display: grid; place-items: center; padding: 1rem; text-align: center; color: var(--muted); font-size: .9rem; }
@@ -132,7 +154,7 @@
     button.send[disabled] { opacity: .5; cursor: not-allowed; }
     .status { margin: 1rem 0 0; min-height: 1.5em; font-size: .9rem; }
     .fine { margin: 1.25rem 0 0; font-size: .8rem; color: var(--muted); }
-    .site-footer { padding: 2rem 0 2.5rem; border-top: 1px solid #23232e; color: #b9b9c4; font-size: .8rem; line-height: 1.6; }
+    .site-footer { padding: 2.5rem 0 3rem; background: #2f3033; color: #b9b9c4; font-size: .8rem; line-height: 1.6; }
     .site-footer p { margin: 0; } .site-footer .name { color: #fff; font-weight: 700; }
   </style>
 </head>
@@ -144,22 +166,38 @@
       <a href="../index.html"><img src="../images/logo-girling-design.svg" alt="Girling Design, home" width="239" height="99"></a>
       <a class="back" href="../index.html">&larr; Back to all work</a>
     </header>
-    <div class="wrap hero__body">
-      <div class="hero__copy">
-        <p class="presented"><img src="../images/logo-brand-provenance.svg" alt="" width="179" height="232"><span>Built on BRND Standard, published by Brand Provenance</span></p>
-        <h1>Make your brand AI-ready</h1>
-        <p class="lead lead--strong">AI tools shouldn&rsquo;t dilute your brand.</p>
-        <p class="lead">Brand guidelines were written for people, not for machines. I create a customised BRND Standard for your business: plain-text files that people and AI tools can both read, so your voice, tone, visual logic and positioning stay yours wherever the work is done.</p>
-        <p class="lead">It doesn&rsquo;t train an AI on your brand. It gives whichever tool you choose clear context to work from.</p>
-        <div class="hero__cta">
-          <a class="btn" href="#enquire">Start an enquiry</a>
-          <div class="price">From $12,987 <small>+ GST. A starting point: we plan the price around what you need.</small></div>
+    <div class="wrap hero__logos">
+      <div class="presented">
+        <div class="presented__logos">
+          <img src="../images/logo-brand-provenance.svg" alt="Brand Provenance" width="179" height="232">
+          <img class="presented__std" src="../images/logo-brnd-standard.svg" alt="BRND Standard" width="176" height="115">
         </div>
+        <p class="presented__text">BRND Standard, authored by Nicholas Girling and published by Brand Provenance.</p>
+      </div>
+    </div>
+    <div class="wrap hero__center">
+      <h1>Make your brand <span style="white-space:nowrap">AI-ready</span></h1>
+      <p class="lead lead--strong">AI tools shouldn&rsquo;t dilute your brand.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#enquire">Start an enquiry</a>
+        <div class="price">From $12,987 <small>+ GST. A starting point: we plan the price around what you need.</small></div>
       </div>
     </div>
   </section>
 
   <main>
+    <section class="band wrap intro" aria-label="Introduction">
+      <div class="intro__grid">
+      <div class="intro__text">
+        <p>Brand guidelines were written for people, not for machines. I create a customised BRND Standard for your business: plain-text files that people and AI tools can both read, so your voice, tone, visual logic and positioning stay yours wherever the work is done.</p>
+        <p>It maps how your brand behaves, not what it contains: how much room the logo needs so your priorities keep their authority, how your sentences move, how your images look. Any AI tool you choose can read the map, and nobody has to train a model on your brand.</p>
+        <p class="intro__for"><strong>Who it&rsquo;s for.</strong> Creative leaders, marketing directors and growing businesses using AI tools, agents or automated workflows for content and design. <span class="draft">Draft</span></p>
+        <p class="intro__cta"><a class="btn" href="#enquire">Start an enquiry</a></p>
+      </div>
+        <div class="intro__video"><div class="vframe" id="video"><p>Video introduction coming soon.</p></div></div>
+      </div>
+    </section>
+
     <section class="band wrap" aria-labelledby="get">
       <p class="kicker">What you get</p>
       <h2 id="get">Your brand, written so any AI can use it</h2>
@@ -169,7 +207,7 @@
         <div class="postcard__text">
           <h3>Copywriting controls <span class="draft">Draft</span></h3>
           <p>Tone of voice is only the surface. I map how your writing carries meaning (semantics) and what it does for the reader (pragmatics), and I set rules for syntax, because how sentences are built often matters most. Tone dials such as warmth, authority, brevity, energy and formality sit alongside them.</p>
-          <p>Within those rules sit writing mechanisms for the jobs your copy has to do: explaining complex ideas clearly, speaking with luxury or commercial sensitivity, holding energy without shouting, persuading, and meeting the reader instead of pushing at them.</p>
+          <p>Within those rules sit writing mechanisms for the jobs your copy has to do: explaining complex ideas clearly and holding energy without shouting. For brands whose value rests on authorship and standards, a luxury, authority-led posture is available as an optional layer, encounter positioning. It writes as if the right reader already recognises your standard. It declares instead of pleads, chooses what to leave unsaid, and offers a designed point of access in place of sales pressure.</p>
           <p>Each place your writing appears has its own register. A press advertisement, a LinkedIn article and a TikTok caption don&rsquo;t sound the same, and they shouldn&rsquo;t. The files describe how your brand speaks on each surface.</p>
         </div>
         <div class="postcard__block" role="img" aria-label="Illustrative tone dial settings from minus one to plus one">
@@ -189,38 +227,80 @@
       <div class="postcard postcard--flip">
         <div class="postcard__text">
           <h3>Image mapping, where imagery matters <span class="draft">Draft</span></h3>
-          <p>A style can be described without showing a single image. Van Gogh and Michelangelo could paint the same subject and the descriptions would still be worlds apart: one is textured, directional and turbulent, the other smooth, modelled and composed. I build that kind of description for your imagery.</p>
+          <p>A style can be described without showing a single image. I describe how your imagery behaves, not what it shows: the texture of a surface, the energy of a line, the quality of light, and how much room the important things are given to breathe. Each becomes a setting a tool can follow.</p>
           <p>I also build a LUT (look-up table) file for your imagery. It maps lighting and camera lens choices, among other mechanisms, to numerical controls, so you can fine-tune the look of your images with numbers instead of guesswork.</p>
           <p>Your image files stay where they are. The standard describes your imagery in plain language and can point to files when a workflow needs them. The image side of the standard is still being defined.</p>
         </div>
-        <div class="postcard__block postcard__block--sand" role="img" aria-label="Illustration: two painters' styles described as dials from minus one to plus one, with no images">
-          <p class="block__label">Same subject, two styles, no images (illustrative)</p>
-          <div class="pairs">
-          <div class="pair"><span class="pair__name">surface texture</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:10%;width:40%"></i></span><span class="dial__val">-0.8</span></div></div>
-          <div class="pair"><span class="pair__name">line energy</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:40%"></i></span><span class="dial__val">+0.8</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:35%;width:15%"></i></span><span class="dial__val">-0.3</span></div></div>
-          <div class="pair"><span class="pair__name">form volume</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:25%;width:25%"></i></span><span class="dial__val">-0.5</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div></div>
-          <div class="pair"><span class="pair__name">tonal modelling</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:30%;width:20%"></i></span><span class="dial__val">-0.4</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div></div>
-          <div class="pair"><span class="pair__name">colour saturation</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:40%"></i></span><span class="dial__val">+0.8</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:50%;width:15%"></i></span><span class="dial__val">+0.3</span></div></div>
-          <div class="pair"><span class="pair__name">rhythm and movement</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:40%;width:10%"></i></span><span class="dial__val">-0.2</span></div></div>
+        <div class="postcard__block postcard__block--sand" role="img" aria-label="Illustration: image look settings on a scale of one to five">
+          <p class="block__label">Image LUT, levels 1 to 5 (illustrative values)</p>
+          <div class="dials">
+          <div class="dial"><span class="dial__name">cinematic quality</span><span class="dial__bar"><i style="left:0;width:80%"></i></span><span class="dial__val">4/5</span></div>
+          <div class="dial"><span class="dial__name">palette vibrancy</span><span class="dial__bar"><i style="left:0;width:60%"></i></span><span class="dial__val">3/5</span></div>
+          <div class="dial"><span class="dial__name">contrast level</span><span class="dial__bar"><i style="left:0;width:60%"></i></span><span class="dial__val">3/5</span></div>
+          <div class="dial"><span class="dial__name">dynamic range detail</span><span class="dial__bar"><i style="left:0;width:60%"></i></span><span class="dial__val">3/5</span></div>
+          <div class="dial"><span class="dial__name">visibility priority</span><span class="dial__bar"><i style="left:0;width:40%"></i></span><span class="dial__val">2/5</span></div>
+          <div class="dial"><span class="dial__name">minimalism level</span><span class="dial__bar"><i style="left:0;width:80%"></i></span><span class="dial__val">4/5</span></div>
           </div>
-          <p class="pair__legend"><b>VG</b> Van Gogh: impasto, directional, turbulent. <b>M</b> Michelangelo: sculptural, modelled, composed.</p>
         </div>
       </div>
-      <p class="sub" style="margin:0">Not everything is mapped. We start with the most pressing elements and plan the work, and the price, around your needs. There&rsquo;s no point mapping things you never use, or rarely use.</p>
+      <p class="sub">Not everything is mapped. We start with the most pressing elements and plan the work, and the price, around your needs. There&rsquo;s no point mapping things you never use, or rarely use.</p>
+
+      <div class="postcard">
+        <div class="postcard__text">
+          <h3>Your Brand Ledger</h3>
+          <p>Your standard keeps evolving. When it becomes a new copy, the original is archived. The archive becomes part of your Brand Ledger.</p>
+          <p>Each archived copy is a record of who your company was at that point in time. You can return to it whenever you like.</p>
+          <p>Copy the files each season and make the adjustments, or once a year if that suits you better.</p>
+        </div>
+        <div class="postcard__block" style="min-height:28rem" role="img" aria-label="Illustration: a current quarterly brand standard above two archived earlier quarters">
+          <p class="block__label">Brand Ledger (illustration)</p>
+          <ol class="ledger">
+            <li class="ledger__now"><span class="ledger__dot"></span><span class="ledger__name">My Current Company BRND Standard (Q1-2027)</span><span class="ledger__tag">in use</span></li>
+            <li><span class="ledger__dot"></span><span class="ledger__name">My Company BRND Standard (Q4-2026)</span><span class="ledger__tag">archived</span></li>
+            <li><span class="ledger__dot"></span><span class="ledger__name">My Company BRND Standard (Q3-2026)</span><span class="ledger__tag">archived</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="band wrap" aria-labelledby="behind">
+      <h2 id="behind" class="sr-only">Quarterly updates, and who is behind this</h2>
+      <div class="tiles2">
+        <div class="tile">
+          <h3>Do you need to start from scratch each quarter?</h3>
+          <p>No. Sometimes the adjustments are simply refinements. Keeping the earlier copies archived lets you go back to something special that once worked and that you may have over-corrected.</p>
+        </div>
+        <div class="tile">
+          <h3>Who is behind this</h3>
+          <p><strong>Nicholas Girling</strong> is the author and copyright holder of BRND Standard, published by Brand Provenance, the home of the standard.</p>
+          <p><strong>Girling Design</strong> builds and delivers customised BRND Standards for businesses.</p>
+          <p class="tile__own">All three are owned by Nicholas Girling.</p>
+        </div>
+      </div>
     </section>
 
     <section class="band wrap" aria-labelledby="how">
       <p class="kicker">How it works <span class="draft">Draft</span></p>
       <h2 id="how">Three steps</h2>
-      <div class="steps" style="margin-top:1.5rem">
+      <div class="steps" style="margin-top:2rem">
         <div class="step"><h3>Context audit</h3><p>I review your existing guidelines, design assets and the channels you write for, and study the writing that has already worked well for you.</p></div>
         <div class="step"><h3>Standard construction</h3><p>I write your voice, tone and visual logic into the BRND Standard structure.</p></div>
         <div class="step"><h3>Delivery and handover</h3><p>You receive plain-text files, ready to use as context in the AI tools you choose.</p></div>
       </div>
     </section>
 
+    <section class="band wrap" aria-labelledby="invest">
+      <p class="kicker">Investment</p>
+      <h2 id="invest" class="visually-hidden-h">Investment and what I need</h2>
+      <div class="invest">
+        <div><h3>Price</h3><p class="price">From $12,987 <small>+ GST</small></p></div>
+        <div><h3>Timing <span class="draft">Draft</span></h3><p>To be confirmed.</p></div>
+        <div><h3>What I need from you <span class="draft">Draft</span></h3><p>Your existing brand guidelines, vector logos and representative campaign assets.</p></div>
+      </div>
+    </section>
+
     <section class="band wrap" aria-labelledby="promise">
-      <p class="kicker">What to expect</p>
+      <p class="kicker">Good to know</p>
       <h2 id="promise" class="visually-hidden-h">Commitments and limits</h2>
       <div class="two">
         <div class="card"><h3>What I commit to</h3>
@@ -240,39 +320,6 @@
       </div>
     </section>
 
-    <section class="band wrap" aria-labelledby="ledger">
-      <p class="kicker">Brand Ledger</p>
-      <h2 id="ledger" class="sr-only">Your Brand Ledger</h2>
-      <div class="postcard">
-        <div class="postcard__text">
-          <h3>Your Brand Ledger</h3>
-          <p>Your standard keeps evolving. When it becomes a new copy, the original is archived. The archive becomes part of your Brand Ledger.</p>
-          <p>Each archived copy is a record of who your company was at that point in time. You can return to it whenever you like.</p>
-          <p>Copy the files each season and make the adjustments, or once a year if that suits you better.</p>
-        </div>
-        <div class="postcard__block" style="min-height:28rem" role="img" aria-label="Illustration: a current quarterly brand standard above two archived earlier quarters">
-          <p class="block__label">Brand Ledger (illustration)</p>
-          <ol class="ledger">
-            <li class="ledger__now"><span class="ledger__dot"></span><span class="ledger__name">My Current Company BRND Standard (Q1-2027)</span><span class="ledger__tag">in use</span></li>
-            <li><span class="ledger__dot"></span><span class="ledger__name">My Company BRND Standard (Q4-2026)</span><span class="ledger__tag">archived</span></li>
-            <li><span class="ledger__dot"></span><span class="ledger__name">My Company BRND Standard (Q3-2026)</span><span class="ledger__tag">archived</span></li>
-          </ol>
-        </div>
-      </div>
-      <p class="sub" style="margin:0"><strong style="color:var(--fg)">Do you need to start from scratch each quarter?</strong> No. Sometimes the adjustments are simply refinements. Keeping the earlier copies archived lets you go back to something special that once worked and that you may have over-corrected.</p>
-    </section>
-
-    <section class="band wrap" aria-labelledby="invest">
-      <p class="kicker">Investment</p>
-      <h2 id="invest" class="visually-hidden-h">Investment and what I need</h2>
-      <div class="invest">
-        <div><h3>Price</h3><p class="price">From $12,987 <small>+ GST</small></p></div>
-        <div><h3>Timing <span class="draft">Draft</span></h3><p>To be confirmed.</p></div>
-        <div><h3>What I need from you <span class="draft">Draft</span></h3><p>Your existing brand guidelines, vector logos and representative campaign assets.</p></div>
-      </div>
-      <p class="sub" style="margin:1rem 0 0"><strong style="color:var(--fg)">Who it&rsquo;s for.</strong> Creative leaders, marketing directors and growing businesses using AI tools, agents or automated workflows for content and design. <span class="draft">Draft</span></p>
-    </section>
-
     <section class="enquire wrap" id="enquire" aria-labelledby="enq">
       <div class="enquire__grid">
         <div class="enquire__form">
@@ -288,9 +335,6 @@
             <p class="status" id="status" role="status" aria-live="polite"></p>
             <p class="fine">Your details are sent through Formspree, which delivers them to me. I only use them to reply to you.</p>
           </form>
-        </div>
-        <div class="enquire__video">
-          <div class="vframe" id="video"><p>Video introduction coming soon.</p></div>
         </div>
       </div>
     </section>
@@ -339,13 +383,14 @@ form.addEventListener('submit', async e => {
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Segment spacing shrinks in proportion to the radius so curves stay as smooth as the original.
   const RADIUS_K = 0.48, STEP = 0.01 * (0.24 / RADIUS_K);
+  const SX = 0.78; // horizontal squeeze: the form is a little narrower than it is tall, so it leaves room for the text
   let lines = 44; const MIN_LINES = 14;
   let w, h, cx, cy, radius, bw, bh, frame = 0, running = false, visible = true, last = 0, acc = 0, n = 0;
   function size() {
     const r = hero.getBoundingClientRect();
     w = Math.round(r.width); h = Math.round(r.height); canvas.width = w; canvas.height = h;
     bw = Math.max(1, w >> 1); bh = Math.max(1, h >> 1); blurCanvas.width = bw; blurCanvas.height = bh;
-    cx = w * (w > 760 ? 0.66 : 0.5); cy = h * 0.5; radius = Math.min(w, h) * RADIUS_K;
+    cx = w * 0.5; cy = h * 0.5; radius = Math.min(w, h) * RADIUS_K;
   }
   function draw() {
     ctx.clearRect(0, 0, w, h);
@@ -356,7 +401,7 @@ form.addEventListener('submit', async e => {
     for (let i = 0; i < lines; i++) {
       ctx.beginPath();
       for (let a = 0; a <= Math.PI * 2; a += STEP) {
-        ctx.lineTo(cx + radius * Math.cos(a + frame * 0.002 + i * 0.03) * Math.sin(a * 3 + i * 0.1),
+        ctx.lineTo(cx + SX * radius * Math.cos(a + frame * 0.002 + i * 0.03) * Math.sin(a * 3 + i * 0.1),
                    cy + radius * Math.sin(a + frame * 0.002 + i * 0.02) * Math.cos(a * 2.5));
       }
       ctx.strokeStyle = colors[i % colors.length]; ctx.stroke();
