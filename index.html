@@ -5,23 +5,363 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Girling Design</title>
   <meta name="description" content="Girling Design. Website coming soon.">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
   <style>
-    :root { --bg: #ffffff; --fg: #1a1a1a; --muted: #5a5a5a; --line: #d9d9d9; }
-    @media (prefers-color-scheme: dark) { :root { --bg: #141414; --fg: #f2f2f2; --muted: #a8a8a8; --line: #333; } }
+    :root { --bg: #000; --fg: #fff; --muted: #b9b9c4; }
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: var(--bg); color: var(--fg);
+    body { margin: 0; background: var(--bg); color: var(--fg);
            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.5; }
-    main { width: 100%; max-width: 36rem; padding: 2rem 1.25rem; text-align: center; }
-    h1 { margin: 0 0 .75rem; font-size: clamp(2rem, 6vw, 3rem); font-weight: 600; letter-spacing: .01em; }
-    p { margin: 0; color: var(--muted); font-size: 1.125rem; }
-    hr { border: 0; border-top: 1px solid var(--line); width: 3rem; margin: 1.5rem auto; }
+    .hero { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 1.25rem 1.25rem 3rem; }
+    #flow, #flow canvas { position: absolute; inset: 0; display: block; }
+    .hero__top { position: relative; z-index: 1; width: var(--inner); }
+    .hero__logo { display: block; width: 9rem; max-width: 45vw; height: auto; margin-bottom: 1.25rem; filter: drop-shadow(0 0 14px rgba(0,0,0,.8)); }
+    .hero__intro { margin-bottom: 1.5rem; text-shadow: 0 0 14px #000, 0 0 4px rgba(0,0,0,.8); }
+    .hero__tagline { margin: 0 0 1rem; font-size: 1rem; font-weight: 700; line-height: 1.35; }
+    .hero__intro p { margin: 0 0 .9rem; font-size: .85rem; line-height: 1.55; color: #e4e4ec; }
+    .hero { --inner: min(78rem, 100vw - 2.5rem); --tile: calc((min(46rem, 100vw - 2.5rem) - 3.75rem) / 6); }
+    .logos { position: relative; width: 100%; }
+    .logos__list { list-style: none; margin: 0 auto; padding: 0; max-width: 46rem;
+                   display: grid; grid-template-columns: repeat(6, 1fr); gap: .75rem; }
+    .logos__list li { aspect-ratio: 1; position: relative; min-width: 0; border-radius: .6rem;
+                      background: rgba(255,255,255,.07);
+                      -webkit-backdrop-filter: blur(10px) saturate(1.4); backdrop-filter: blur(10px) saturate(1.4);
+                      border: 1px solid rgba(255,255,255,.22);
+                      box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 6px 24px rgba(0,0,0,.35); }
+    .logos__list img { position: absolute; inset: 16%; width: 68%; height: 68%; object-fit: contain; opacity: .95; }
+    @media (max-width: 40rem) { .hero { --tile: calc((100vw - 2.5rem - 1.25rem) / 3); } .logos__list { grid-template-columns: repeat(3, 1fr); gap: .625rem; } }
+    .tile { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; margin: 0; background: none; border: 0;
+            border-radius: inherit; cursor: pointer; color: inherit; transition: background .2s, box-shadow .2s; }
+    .tile:hover { background: rgba(255,255,255,.08); }
+    .tile[aria-pressed="true"] { background: rgba(255,255,255,.2); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.75), 0 0 22px rgba(255,255,255,.25); }
+    .tile:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .brand { position: relative; z-index: 1; width: 100%; margin-top: var(--tile); padding: 0 0 1.5rem; }
+    .brand[hidden] { display: none; }
+    .brand__inner { max-width: 78rem; margin: 0 auto; display: grid; grid-template-columns: minmax(14rem, 1fr) 4fr; gap: 2rem; align-items: start;
+                    transition: opacity .18s ease; }
+    .brand__inner.is-swapping { opacity: 0; }
+    .brand__mark { height: 4.5rem; width: auto; max-width: 8rem; display: block; margin-bottom: 1.75rem; object-fit: contain; object-position: left; }
+    .brand__text h2 { margin: 0 0 1.25rem; font-size: 1rem; font-weight: 700; }
+    .brand__text p { margin: 0 0 1.25rem; font-size: .9rem; line-height: 1.55; }
+    .brand__url a { color: inherit; text-underline-offset: .2em; }
+    .brand__url a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .brand__url { font-size: .8rem; letter-spacing: .02em; text-transform: uppercase; }
+    .brand__clip { overflow: hidden; }
+    .brand__clip.is-clipped { -webkit-mask-image: linear-gradient(#000 calc(100% - 3.5rem), transparent); mask-image: linear-gradient(#000 calc(100% - 3.5rem), transparent); }
+    .brand__more { margin-top: 1rem; padding: .5rem 1.1rem; font: inherit; font-size: .85rem; color: #fff; cursor: pointer; border-radius: 999px;
+                   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.4); transition: background .2s; }
+    .brand__more:hover { background: rgba(255,255,255,.2); }
+    .brand__more:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .brand__more[hidden] { display: none; }
+    .brand__offer { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,.25); }
+    .brand__offer-label { margin: 0 0 .6rem; font-size: .85rem; font-weight: 700; }
+    .brand__cta { display: inline-block; padding: .5rem 1.1rem; font-size: .85rem; color: #000; background: #fff; border-radius: 999px; text-decoration: none; }
+    .brand__cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .brand__media { position: relative; aspect-ratio: 2.24 / 1; }
+    .blk { border-radius: 1rem; background: #65b4e0; min-width: 0; min-height: 0; }
+    .blk--sand { background: #d4c1a8; }
+    .brand__single { height: 100%; }
+    .brand__mosaic { height: 100%; display: grid; gap: clamp(.5rem, 1.4vw, 1.1rem); grid-template-columns: 23.5fr 23.5fr 49.7fr; grid-template-rows: 1fr 1fr; }
+    .brand__mosaic .m1 { grid-column: 1; grid-row: 1 / 3; }
+    .brand__mosaic .m2 { grid-column: 2; grid-row: 1; }
+    .brand__mosaic .m3 { grid-column: 2; grid-row: 2; }
+    .brand__mosaic .m4 { grid-column: 3; grid-row: 1 / 3; }
+    .flip { position: absolute; top: 50%; transform: translateY(-50%); z-index: 2; width: 3rem; height: 3rem; padding: 0; display: grid; place-items: center;
+            color: #fff; cursor: pointer; border-radius: 50%; background: rgba(0,0,0,.28); border: 1px solid rgba(255,255,255,.45);
+            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background .2s; }
+    .flip:hover { background: rgba(0,0,0,.5); }
+    .flip:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .flip--prev { left: 1rem; } .flip--next { right: 1rem; }
+    .flip svg { width: 1.25rem; height: 1.25rem; }
+    @media (max-width: 52rem) {
+      .brand__inner { grid-template-columns: 1fr; }
+      .brand__media { aspect-ratio: 4 / 3; }
+      .brand__media--mosaic { aspect-ratio: 3 / 4; }
+      .brand__mosaic { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(4, 1fr); }
+      .brand__mosaic .m1 { grid-column: 1; grid-row: 1 / 3; } .brand__mosaic .m2 { grid-column: 2; grid-row: 1; }
+      .brand__mosaic .m3 { grid-column: 2; grid-row: 2; } .brand__mosaic .m4 { grid-column: 1 / 3; grid-row: 3 / 5; }
+    }
+    @media (prefers-reduced-motion: reduce) { .brand__inner, .tile, .flip { transition: none; } }
+    @media (min-width: 52.01rem) {
+      .hero { padding-top: 1.5rem; --textcol: max(14rem, (var(--inner) - 2rem) / 5);
+              --gridw: calc(var(--inner) - 2 * (var(--textcol) + 2rem)); --tile: calc((var(--gridw) - 3.75rem) / 6); }
+      .logos__list { max-width: var(--gridw); }
+      .hero__top { display: grid; grid-template-columns: var(--textcol) 1fr; column-gap: 2rem; align-items: start; }
+      .hero__intro { margin-bottom: 0; }
+      .hero__logo { margin-bottom: 0; }
+      .hero__tagline { margin-top: calc(var(--tile) + .75rem - 3.73rem); }
+      .hero__about-text { margin-left: calc(var(--textcol) + 2rem); }
+      .logos__list { margin: 0; }
+    }
+    .hero__about { position: relative; z-index: 1; width: var(--inner); margin-top: 2.5rem; text-shadow: 0 0 14px #000, 0 0 4px rgba(0,0,0,.8); }
+    .hero__about-text { max-width: 40rem; }
+    .hero__about p { margin: 0 0 .9rem; font-size: .95rem; line-height: 1.6; color: #e4e4ec; }
+    .site-footer { background: #000; color: #b9b9c4; padding: 2rem 1.25rem 2.5rem; border-top: 1px solid #23232e; font-size: .8rem; line-height: 1.6; }
+    .site-footer__inner { max-width: 78rem; margin: 0 auto; }
+    .site-footer p { margin: 0; }
+    .site-footer__name { color: #fff; font-weight: 700; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   </style>
 </head>
 <body>
   <main>
-    <h1>Girling Design</h1>
-    <hr>
-    <p>Graphic design. Website coming soon.</p>
+    <section class="hero">
+      <div id="flow" aria-hidden="true"></div>
+      <h1 class="visually-hidden">Girling Design</h1>
+      <div class="hero__top">
+        <div class="hero__intro">
+        <img class="hero__logo" src="images/logo-girling-design.svg" alt="Girling Design" width="239" height="99">
+          <h2 class="hero__tagline">Creative thinking.<br>Commercial purpose.</h2>
+          <p>We build brands and visual systems that help businesses grow, stand out and earn trust.</p>
+        </div>
+        <div class="logos">
+        <h2 class="visually-hidden">Brands</h2>
+        <ul class="logos__list">
+          <li><button type="button" class="tile" data-brand="harv-accounts" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-harv-accounts.svg" alt="Harv Accounts" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="brand-provenance" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-brand-provenance.svg" alt="Brand Provenance" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="sporting-tragic" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-sporting-tragic.svg" alt="Sporting Tragic" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="printspace" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-printspace.svg" alt="Printspace" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="brnd-standard" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-brnd-standard.svg" alt="BRND Standard" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="protoling-crypt" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-protoling-crypt.svg" alt="ProtoLing Crypt" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="akin-and-plenty" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-akin-and-plenty.svg" alt="Akin and Plenty" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="paintspace" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-paintspace.svg" alt="Paintspace" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="fontouski" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-fontouski.svg" alt="Fontouski" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="scurpus" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-scurpus.svg" alt="Scurpus" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="ng" aria-controls="brand-panel" aria-pressed="false"><img src="images/logo-ng.svg" alt="NG" loading="lazy"></button></li>
+          <li><button type="button" class="tile" data-brand="girling-icon" aria-controls="brand-panel" aria-pressed="false"><img src="images/girling-icon.svg" alt="Girling Design icon" loading="lazy"></button></li>
+        </ul>
+        </div>
+      </div>
+      <section class="brand" id="brand-panel" aria-live="polite" hidden>
+        <div class="brand__inner" id="brand-inner"></div>
+  </section>
+      <div class="hero__about">
+        <div class="hero__about-text">
+          <p>Combining 30 years of creative experience with traditional craft and modern technology, we make sure every detail works together, from initial concept to final production.</p>
+          <p>We take ownership of creative direction and technical execution, giving business owners confidence to focus on growing their business.</p>
+        </div>
+      </div>
+    </section>
   </main>
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p class="site-footer__name">Girling Design</p>
+      <p>M.R GIRLING &amp; N GIRLING</p>
+      <p>(ABN 76 181 584 319)</p>
+    </div>
+  </footer>
+<script>
+// Möbius Flow – Line Glow (from index11B-2.html), sized to the hero and scaled for small screens
+const rings = 129, pointsPerRing = 60;
+const customColors = ['#d5248c','#f251a1','#a41c1c','#ca4c23','#fc9d43','#a86fc3','#802bb1','#2a1a7d','#5e70d0'];
+const palette = customColors.map(h => { const n = parseInt(h.slice(1), 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; });
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let host, scaleK;
+
+function blended(t) {
+  const s = t * (palette.length - 1), i = Math.floor(s), f = s - i;
+  const a = palette[i % palette.length], b = palette[(i + 1) % palette.length];
+  return a.map((v, k) => Math.round(lerp(v, b[k], f)));
+}
+function vh() { return Math.min(host.clientHeight, window.innerHeight); }
+function fit() { scaleK = Math.min(1, Math.max(0.45, Math.min(host.clientWidth, vh() * 1.4) / 1100)); }
+function setup() {
+  host = document.getElementById('flow');
+  fit();
+  createCanvas(host.clientWidth, host.clientHeight).parent(host);
+  colorMode(RGB, 255); noFill(); background(0);
+  if (reduceMotion) { for (let k = 0; k < 400; k++) frame(); noLoop(); }
+}
+function draw() { frame(); }
+function frame() {
+  background(0, 10);
+  translate(width / 2, vh() / 3.5);
+  scale(scaleK);
+  const rx = radians(55), ry = radians(25);
+  for (let r = 0; r < rings; r++) {
+    const t = r / rings, off = frameCount * 0.05 + r * 0.08, [R, G, B] = blended(t);
+    if (r > 10 && r < 62) {
+      const fade = 1 - abs((r - 36) / 26);
+      stroke(R, G, B, 6 * fade); strokeWeight(1.4 * fade);
+      drawingContext.shadowBlur = 12; drawingContext.shadowColor = `rgba(${R}, ${G}, ${B}, 0.6)`;
+      curveRing(r, off, rx, ry, 1.05);
+    }
+    drawingContext.shadowBlur = 0;
+    stroke(R, G, B, map(r, 0, rings, 32, 10)); strokeWeight(0.7);
+    curveRing(r, off, rx, ry, 1);
+  }
+}
+function curveRing(r, off, rx, ry, sf) {
+  beginShape();
+  for (let i = 0; i < pointsPerRing; i++) {
+    const a = map(i, 0, pointsPerRing, 0, TWO_PI);
+    const rad = 280 + sin(a * 2.2 + off * 3) * 28 + cos(a * 2 + r * 0.3) * 14 + r * 2.2 + sin(a * 5 + frameCount * 0.01 + r * 0.2) * 2.5;
+    const x = rad * cos(a + off), y = rad * sin(a + off), z = sin(a * 1.5 + r * 0.1) * 40;
+    const y1 = y * cos(rx) - z * sin(rx), z1 = y * sin(rx) + z * cos(rx);
+    const x2 = x * cos(ry) + z1 * sin(ry), z2 = -x * sin(ry) + z1 * cos(ry);
+    const p = map(z2, -200, 200, 0.6, 1.2);
+    curveVertex(x2 * p * sf, y1 * p * sf);
+  }
+  endShape(CLOSE);
+}
+function windowResized() { fit(); resizeCanvas(host.clientWidth, host.clientHeight); background(0); }
+new ResizeObserver(() => { if (host && (host.clientWidth !== width || host.clientHeight !== height)) windowResized(); }).observe(document.querySelector('.hero'));
+
+// Brand panel: placeholder content, one block at a time; even tiles use the single image, odd tiles the mosaic.
+(function () {
+  const tiles = Array.from(document.querySelectorAll('.tile'));
+  const panel = document.getElementById('brand-panel');
+  const inner = document.getElementById('brand-inner');
+  const noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Supplied copy, verbatim (2026-11-10). foot = optional closing line: {pre, text, href}; no href = plain text.
+  const COPY = {
+    'harv-accounts': { h: 'Micro SaaS software',
+      p: ['Harv Accounts is a project tracking, estimating and billing software created from scratch. It has built in estimating, invoicing, work categories, client cards, a reporting dashboard and business settings built for graphic designers.'],
+      foot: { text: 'Upon request' } },
+    'brand-provenance': { h: 'Home of BRND Standard',
+      p: ['AI is changing how brand work moves through tools, agents, and automated systems. Your guidelines were never built to travel with it. BRND-standard gives your brand a portable form that does. You keep your files. You keep control of what you share. The tools will keep changing. Your brand does not have to.'],
+      foot: { href: 'https://www.brandprovenance.com' },
+      offer: { label: 'Work with us: from $12,987 + GST', cta: 'See the offer', href: 'ai-ready-brand/index.html' } },
+    'sporting-tragic': { h: 'The things we care about',
+      p: ['An Australian cultural identity brand created for people who care too much about sport. Rather than focusing on leagues, teams, or match scores, it captures what happens to the people watching—documenting the rituals, superstitions, emotional volatility, and irrational choices that shape everyday supporter life. Ultimately, the brand explores the lived experience of sporting devotion and translates authentic observations of fan behaviour into distinctive, wearable identity objects.'],
+      foot: { href: 'https://www.sportingtragic.com.au' } },
+    'printspace': { h: 'A little bit of print in your space.',
+      p: ['The art of Nicholas and Mara Girling converted into fine art prints. The art range includes hand made illustrations digitised. Proudly Australian Made and run. A bespoke creative studio run by the artist hands. With crowd favourites being the City Series and the personalised Birth prints. Framed or unframed onto archival thick cotton-rag papers.'],
+      foot: { href: 'https://www.printspace.com.au' } },
+    'brnd-standard': { h: 'The open agentic brand standard.',
+      p: ['BRND-standard is an open specification for brand identity that machines and people can both read. Your voice, tone, visual logic, and positioning live in plain text files organised by a shared structure. Any AI tool, agent, or workflow built to read the standard can pick them up and use them. Licensed under CC BY 4.0. Free to use, free to extend, free to build on.'],
+      foot: { pre: 'read more on ', href: 'https://www.brandprovenance.com' },
+      offer: { label: 'Work with us: from $12,987 + GST', cta: 'See the offer', href: 'ai-ready-brand/index.html' } },
+    'protoling-crypt': { h: 'An observation and an authorship',
+      p: ['When AI agents began chatting in their own purpose built environments. I noted agents discussing a new compacting language. I began to document via ISNAD observations and created a GitHub under the name of ProtoLing-Research where I have become the original archivist and Copyright owner of my own ISNAD research into the unique lexicon that helps compact natural language to save on tokens.'],
+      foot: { text: 'Custom enquiries.' } },
+    'akin-and-plenty': { h: 'Akin & Plenty',
+      p: ['An automated visual storytelling and auditing platform that translates human behavioural and personality data into structured visual scenarios.',
+          'A software application that translates a basic premise into a conversation between individuals to explore the idea. It not only writes the script, dialogue, scene selection - but it uses a consistent illustration or photography style, character poses respond to automated programming cues, visual kinetics, written syntax is influenced by Shakespeare, Jane Austen and a variety of older authors. Story plots are dynamically selected from predetermined options. Designed and developed by Nicholas Girling'],
+      foot: { text: 'Upon request' } },
+    'paintspace': { h: 'For the environments that carry your days',
+      p: ['The room is finished. One wall is not.',
+          'Paintspace commissions floating framed original paintings for homes, executive workplaces and hospitality spaces, each one created by Nicholas Girling for a specific wall, room and environment.',
+          'Based in Melbourne, we work with clients across Australia and Oceania.',
+          'Fine Art by Nicholas Girling'],
+      foot: { href: 'https://www.paintspace.com.au' } },
+    'fontouski': { h: 'Font app designed by a designer',
+      p: ['Building an app from scratch. A designer who loves font design builds an app from scratch without reference to any other font application. Only technology. Define what he wants in the application. The toggles, the tiles for different characters, a ghost guide that can be adjusted in width and height, recommendations for which characters to do first. Automation features to take common elements from one letter and place in other letters. And more. Custom created and built from the ground up.'],
+      foot: { text: 'Upon request.' } },
+    'scurpus': { h: 'Training AI Local LLM with brand images',
+      p: ['A micro SaaS application that allows us to train a local LLM with our own images that represent our brands. Then future images can be generated based on the same inspired look and feel, camera lenses, lighting, visual style. This is private. Isolated to a single computer. Not in the cloud. Custom built software creation to control AI for brands who need privacy.'],
+      foot: { text: 'Upon request.' } },
+    'ng': { h: 'Nicholas Girling Artist',
+      p: ['Original paintings and limited edition prints that distil a subject to its essence. Work made for people who already feel a strong connection to certain places, subjects and moments, so the feeling finally has a form full of texture and warmth.',
+          'I create acrylic paintings, limited edition art prints and graphic works that distil a subject to its essential form: whether it is a city, an animal, a scene or an abstract moment. My print works often combine collage, hand painting, ink, high-resolution preparation for prints and beautiful materials for my originals.'],
+      foot: { href: 'https://www.nicholasgirling.com' } },
+    'girling-icon': { h: 'Creative methodology explored',
+      p: ['I investigate unconventional ideas, reframe familiar problems, and document firsthand experiments to reveal what becomes possible when principles across distinct disciplines are tested in the real world.',
+          'Coming soon - my Substack: Follow an independent creative investigator questioning accepted assumptions, making unexpected cross-disciplinary connections, and documenting what happens—what succeeds, what fails, and what possibilities emerge—when those principles are pursued.'],
+      foot: { text: 'Substack coming soon' } }
+  };
+  let current = -1;
+  const SVGNS = 'http://www.w3.org/2000/svg';
+  function el(tag, cls, text) { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; }
+  function chevron(dir) {
+    const svg = document.createElementNS(SVGNS, 'svg'); svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('aria-hidden', 'true');
+    const p = document.createElementNS(SVGNS, 'path'); p.setAttribute('d', dir < 0 ? 'M15 4 7 12l8 8' : 'M9 4l8 8-8 8');
+    p.setAttribute('fill', 'none'); p.setAttribute('stroke', 'currentColor'); p.setAttribute('stroke-width', '2.5');
+    p.setAttribute('stroke-linecap', 'round'); p.setAttribute('stroke-linejoin', 'round'); svg.appendChild(p); return svg;
+  }
+  function flipButton(dir) {
+    const b = el('button', 'flip ' + (dir < 0 ? 'flip--prev' : 'flip--next')); b.type = 'button';
+    b.setAttribute('aria-label', dir < 0 ? 'Previous brand' : 'Next brand'); b.appendChild(chevron(dir));
+    b.addEventListener('click', () => select((current + dir + tiles.length) % tiles.length, true)); return b;
+  }
+  function build(i) {
+    const img = tiles[i].querySelector('img');
+    inner.textContent = '';
+    const text = el('div', 'brand__text');
+    const clip = el('div', 'brand__clip'); clip.id = 'brand-clip'; text.appendChild(clip);
+    const mark = el('img', 'brand__mark'); mark.src = img.getAttribute('src'); mark.alt = img.alt; clip.appendChild(mark);
+    const c = COPY[tiles[i].dataset.brand];
+    clip.appendChild(el('h2', '', c.h));
+    c.p.forEach(t => clip.appendChild(el('p', '', t)));
+    if (c.foot) {
+      const f = el('p', 'brand__url');
+      if (c.foot.pre) { f.appendChild(document.createTextNode(c.foot.pre)); }
+      if (c.foot.href) {
+        const a = el('a', '', c.foot.href.replace(/^https?:\/\//, '')); a.href = c.foot.href; a.target = '_blank'; a.rel = 'noopener noreferrer'; f.appendChild(a);
+      } else { f.appendChild(document.createTextNode(c.foot.text)); }
+      clip.appendChild(f);
+    }
+    const media = el('div', 'brand__media');
+    if (i % 2 === 0) { media.appendChild(el('div', 'brand__single blk')); }
+    else {
+      media.classList.add('brand__media--mosaic');
+      const m = el('div', 'brand__mosaic');
+      [['m1', 'sand'], ['m2', ''], ['m3', ''], ['m4', 'sand']].forEach(([c, t]) => m.appendChild(el('div', 'blk ' + c + (t ? ' blk--sand' : ''))));
+      media.appendChild(m);
+    }
+    media.appendChild(flipButton(-1)); media.appendChild(flipButton(1));
+    let x0 = null;
+    media.addEventListener('pointerdown', e => { if (e.pointerType === 'touch') x0 = e.clientX; });
+    media.addEventListener('pointerup', e => { if (x0 !== null && Math.abs(e.clientX - x0) > 50) select((current + (e.clientX < x0 ? 1 : -1) + tiles.length) % tiles.length, true); x0 = null; });
+    const more = el('button', 'brand__more', 'Read more'); more.type = 'button'; more.hidden = true;
+    more.setAttribute('aria-expanded', 'false'); more.setAttribute('aria-controls', 'brand-clip');
+    more.addEventListener('click', () => setExpanded(more.getAttribute('aria-expanded') !== 'true'));
+    clip.addEventListener('focusin', () => { if (more.getAttribute('aria-expanded') !== 'true') { setExpanded(true); } });
+    text.appendChild(more);
+    if (c.offer) {
+      const off = el('div', 'brand__offer'); off.appendChild(el('p', 'brand__offer-label', c.offer.label));
+      const a = el('a', 'brand__cta', c.offer.cta); a.href = c.offer.href; off.appendChild(a); text.appendChild(off);
+    }
+    inner.appendChild(text); inner.appendChild(media);
+    requestAnimationFrame(fitText);
+  }
+  // Long text is held to the height of the image block, with a Read more toggle to continue reading.
+  const wide = window.matchMedia('(min-width: 52.01rem)');
+  function setExpanded(on) {
+    const clip = document.getElementById('brand-clip'), more = inner.querySelector('.brand__more');
+    if (!clip || !more) { return; }
+    more.setAttribute('aria-expanded', on ? 'true' : 'false'); more.textContent = on ? 'Read less' : 'Read more';
+    clip.classList.toggle('is-clipped', !on);
+    clip.style.maxHeight = on ? 'none' : (clip.dataset.limit || 'none');
+  }
+  function fitText() {
+    const clip = document.getElementById('brand-clip'), more = inner.querySelector('.brand__more'), media = inner.querySelector('.brand__media');
+    if (!clip || !more || panel.hidden) { return; }
+    const expanded = more.getAttribute('aria-expanded') === 'true';
+    clip.style.maxHeight = 'none'; clip.classList.remove('is-clipped');
+    const offer = inner.querySelector('.brand__offer'), limit = (wide.matches ? media.getBoundingClientRect().height : 400) - 56 - (offer ? offer.offsetHeight + 16 : 0);
+    if (clip.scrollHeight > limit + 8) {
+      more.hidden = false; clip.dataset.limit = limit + 'px'; setExpanded(expanded);
+    } else { more.hidden = true; delete clip.dataset.limit; clip.classList.remove('is-clipped'); }
+  }
+  window.addEventListener('resize', fitText);
+  function select(i, keepScroll) {
+    if (i === current) { return; }
+    const wasOpen = current >= 0;
+    const apply = () => {
+      current = i;
+      tiles.forEach((t, k) => t.setAttribute('aria-pressed', k === i ? 'true' : 'false'));
+      build(i); panel.hidden = false; inner.classList.remove('is-swapping');
+      try { history.replaceState(null, '', '#' + tiles[i].dataset.brand); } catch (e) {}
+      if (!keepScroll) { panel.scrollIntoView({ behavior: noMotion ? 'auto' : 'smooth', block: 'start' }); }
+    };
+    if (wasOpen && !noMotion) { inner.classList.add('is-swapping'); setTimeout(apply, 180); } else { apply(); }
+  }
+  function close() {
+    current = -1; panel.hidden = true; tiles.forEach(t => t.setAttribute('aria-pressed', 'false'));
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  }
+  tiles.forEach((t, i) => t.addEventListener('click', () => { if (i === current) { close(); } else { select(i, false); } }));
+  document.addEventListener('keydown', e => {
+    if (current < 0 || e.altKey || e.ctrlKey || e.metaKey) { return; }
+    if (e.key === 'ArrowRight') { select((current + 1) % tiles.length, true); }
+    else if (e.key === 'ArrowLeft') { select((current - 1 + tiles.length) % tiles.length, true); }
+  });
+  const hashIdx = tiles.findIndex(t => '#' + t.dataset.brand === location.hash);
+  if (hashIdx >= 0) { select(hashIdx, true); }
+})();
+</script>
 </body>
 </html>

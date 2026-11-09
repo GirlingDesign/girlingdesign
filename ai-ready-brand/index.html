@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Make your brand AI-ready | Girling Design</title>
+  <meta name="description" content="A customised BRND Standard for your business: plain-text files that people and AI tools can both read. From $12,987 + GST.">
+  <style>
+    :root { --bg: #000; --fg: #fff; --muted: #c9c9d3; --line: rgba(255,255,255,.22); --glass: rgba(255,255,255,.07); --blue: #65b4e0; --sand: #d4c1a8; --ink: #0b2a3d; --inner: min(78rem, 100vw - 2.5rem); }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.55; }
+    a { color: inherit; text-underline-offset: .2em; }
+    a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .wrap { width: var(--inner); margin: 0 auto; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+    /* hero */
+    .hero { position: relative; min-height: 88vh; min-height: 88svh; overflow: hidden; display: flex; flex-direction: column; }
+    #glow, #glowBlur { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+    #glowBlur { filter: blur(7px); opacity: .95; }
+    .top { position: relative; z-index: 2; padding: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .top img { width: 9rem; max-width: 45vw; height: auto; display: block; }
+    .top a.back { font-size: .85rem; color: var(--muted); }
+    .hero__body { position: relative; z-index: 2; flex: 1; display: flex; align-items: center; padding: 2rem 0 4rem; text-shadow: 0 0 18px #000, 0 0 6px rgba(0,0,0,.8); }
+    .hero__copy { max-width: 34rem; }
+    .presented { margin: 0 0 1.25rem; display: flex; align-items: center; gap: 1.1rem; font-size: .85rem; color: var(--muted); }
+    .presented img { height: 6.5rem; width: auto; display: block; }
+    h1 { margin: 0 0 1rem; font-size: clamp(2.25rem, 6vw, 4rem); line-height: 1.05; }
+    .lead { margin: 0 0 .9rem; font-size: 1.05rem; color: var(--muted); }
+    .lead--strong { font-size: 1.5rem; font-weight: 700; color: var(--fg); margin-bottom: .6rem; }
+    .hero__cta { margin-top: 1.5rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; }
+    .price { font-size: 1.75rem; font-weight: 700; line-height: 1.1; }
+    .price small { display: block; margin-top: .2rem; font-size: .8rem; font-weight: 400; color: var(--muted); }
+    .btn { display: inline-block; padding: .8rem 1.7rem; font: inherit; font-weight: 600; color: #000; background: #fff; border: 0; border-radius: 999px; text-decoration: none; cursor: pointer; text-shadow: none; }
+    .btn--ghost { color: #fff; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.5); }
+
+    /* sections */
+    section.band { padding: 4rem 0 0; }
+    .band h2 { margin: 0 0 .5rem; font-size: clamp(1.5rem, 3vw, 2.25rem); line-height: 1.15; }
+    .band .sub { margin: 0 0 2rem; max-width: 40rem; color: var(--muted); }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .kicker { margin: 0 0 .5rem; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .draft { display: inline-block; margin-left: .4rem; padding: 0 .45rem; font-size: .6rem; letter-spacing: .08em; text-transform: uppercase; color: #000; background: #ffd666; border-radius: 999px; vertical-align: middle; font-weight: 600; }
+
+    /* postcards */
+    .postcard { display: grid; gap: 1.5rem 2rem; align-items: start; margin-bottom: 1.75rem; }
+    @media (min-width: 52.01rem) { .postcard { grid-template-columns: minmax(14rem, 1fr) 4fr; } .postcard--flip { grid-template-columns: 4fr minmax(14rem, 1fr); } .postcard--flip .postcard__text { order: 2; } }
+    .pc-clip { overflow: hidden; }
+    .pc-clip.is-clipped { -webkit-mask-image: linear-gradient(#000 calc(100% - 3.5rem), transparent); mask-image: linear-gradient(#000 calc(100% - 3.5rem), transparent); }
+    .pc-more { margin-top: 1rem; padding: .5rem 1.1rem; font: inherit; font-size: .85rem; color: #fff; cursor: pointer; border-radius: 999px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.4); }
+    .pc-more:hover { background: rgba(255,255,255,.2); }
+    .pc-more[hidden] { display: none; }
+    .postcard__text h3 { margin: 0 0 .75rem; font-size: 1.1rem; }
+    .postcard__text p { margin: 0 0 .9rem; font-size: .95rem; color: var(--muted); }
+    .postcard__block { border-radius: 1rem; padding: clamp(1.25rem, 3vw, 2.25rem); color: var(--ink); background: var(--blue); min-height: 24rem; display: flex; flex-direction: column; justify-content: center; }
+    .postcard__block--sand { background: var(--sand); }
+    .block__label { margin: 0 0 1rem; font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
+    .dials { display: grid; gap: .7rem; }
+    .ledger { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; position: relative; }
+    .ledger li { position: relative; display: grid; grid-template-columns: 1.4rem 1fr auto; align-items: center; gap: .75rem; padding: .9rem 0; font-size: .95rem; }
+    .ledger li + li { border-top: 1px solid rgba(11,42,61,.2); }
+    .ledger__dot { width: .8rem; height: .8rem; border-radius: 50%; border: 2px solid var(--ink); }
+    .ledger__now .ledger__dot { background: var(--ink); }
+    .ledger__name { font-weight: 600; }
+    .ledger li:not(.ledger__now) { opacity: .8; }
+    .ledger li:nth-child(n+4) { opacity: .6; }
+    .ledger__tag { font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; padding: .15rem .6rem; border-radius: 999px; border: 1px solid rgba(11,42,61,.5); }
+    .ledger__now .ledger__tag { background: var(--ink); color: var(--blue); border-color: var(--ink); }
+    .pairs { display: grid; gap: .8rem; }
+    .pair__name { display: block; margin-bottom: .2rem; font-size: .8rem; font-weight: 600; }
+    .pair__row { display: grid; grid-template-columns: 1.6rem 1fr 2.6rem; align-items: center; gap: .5rem; font-size: .75rem; }
+    .pair__row + .pair__row { margin-top: .25rem; }
+    .pair__who { font-weight: 700; }
+    .pair .dial__bar { height: .45rem; }
+    .dial__bar i.alt { background: transparent; border: 2px solid var(--ink); }
+    .pair__legend { margin: 1rem 0 0; font-size: .75rem; line-height: 1.4; }
+    .dial { display: grid; grid-template-columns: 9.5rem 1fr 2.6rem; align-items: center; gap: .75rem; font-size: .85rem; }
+    .dial__name { font-weight: 600; }
+    .dial__bar { position: relative; height: .55rem; border-radius: 999px; background: rgba(11,42,61,.18); }
+    .dial__bar::before { content: ""; position: absolute; left: 50%; top: -.2rem; bottom: -.2rem; width: 1px; background: rgba(11,42,61,.5); }
+    .dial__bar i { position: absolute; top: 0; bottom: 0; border-radius: 999px; background: var(--ink); }
+    .dial__val { text-align: right; font-variant-numeric: tabular-nums; }
+    @media (max-width: 40rem) { .dial { grid-template-columns: 7rem 1fr 2.4rem; font-size: .8rem; } }
+
+    /* steps */
+    .steps { display: grid; gap: 1rem; counter-reset: s; }
+    @media (min-width: 52.01rem) { .steps { grid-template-columns: repeat(3, 1fr); } }
+    .step { padding: 1.5rem; border-radius: 1rem; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+    .step::before { counter-increment: s; content: counter(s); display: block; margin-bottom: .75rem; font-size: 2rem; font-weight: 700; line-height: 1; }
+    .step h3 { margin: 0 0 .4rem; font-size: 1rem; }
+    .step p { margin: 0; font-size: .9rem; color: var(--muted); }
+
+    /* promise cards */
+    .two { display: grid; gap: 1rem; }
+    @media (min-width: 52.01rem) { .two { grid-template-columns: 1fr 1fr; } }
+    .card { padding: 1.5rem; border-radius: 1rem; background: var(--glass); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+    .card--wide { grid-column: 1 / -1; }
+    .card h3 { margin: 0 0 .75rem; font-size: 1rem; }
+    .card ul { margin: 0; padding-left: 1.2rem; font-size: .92rem; color: var(--muted); }
+    .card li + li { margin-top: .5rem; }
+    .card p { margin: 0; font-size: .92rem; color: var(--muted); }
+
+    /* investment band */
+    .invest { display: grid; gap: 1.5rem; align-items: center; padding: clamp(1.5rem, 4vw, 2.5rem); border-radius: 1rem; background: var(--sand); color: var(--ink); }
+    @media (min-width: 52.01rem) { .invest { grid-template-columns: 1.2fr 1fr 1fr; } }
+    .invest .price { font-size: clamp(2rem, 4vw, 3rem); }
+    .invest .price small { color: var(--ink); opacity: .75; }
+    .invest h3 { margin: 0 0 .4rem; font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
+    .invest p { margin: 0; font-size: .95rem; }
+
+    .video { margin-top: 1rem; padding: 1.25rem 1.5rem; border-radius: 1rem; border: 1px dashed var(--line); color: var(--muted); font-size: .9rem; }
+
+    /* enquiry */
+    .enquire { padding: 5rem 0; }
+    .enquire__grid { display: grid; gap: 2.5rem; align-items: start; }
+    @media (min-width: 52.01rem) { .enquire__grid { grid-template-columns: minmax(0, 1fr) minmax(16rem, 21rem); gap: 4rem; } }
+    .enquire__video { order: -1; }
+    @media (min-width: 52.01rem) { .enquire__video { order: 0; position: sticky; top: 1.5rem; } }
+    .enquire h2 { font-size: 1.75rem; margin: 0 0 .5rem; }
+    .enquire p.sub { margin: 0 0 1.5rem; color: var(--muted); }
+    .vframe { position: relative; width: min(100%, 21rem); margin: 0 auto; aspect-ratio: 9 / 16; border-radius: 1rem; overflow: hidden; border: 1px dashed var(--line); background: var(--glass); display: grid; place-items: center; padding: 1rem; text-align: center; color: var(--muted); font-size: .9rem; }
+    .vframe p { margin: 0; }
+    .vframe iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .vframe.is-live { border: 0; background: #000; padding: 0; }
+    label { display: block; margin: 0 0 1rem; font-size: .85rem; color: var(--muted); }
+    input, textarea { display: block; width: 100%; margin-top: .35rem; padding: .75rem .85rem; font: inherit; color: #fff; background: rgba(255,255,255,.08); border: 1px solid var(--line); border-radius: .6rem; }
+    textarea { min-height: 8rem; resize: vertical; }
+    .hp { position: absolute; left: -9999px; }
+    button.send { padding: .8rem 1.7rem; font: inherit; font-weight: 600; color: #000; background: #fff; border: 0; border-radius: 999px; cursor: pointer; }
+    button.send[disabled] { opacity: .5; cursor: not-allowed; }
+    .status { margin: 1rem 0 0; min-height: 1.5em; font-size: .9rem; }
+    .fine { margin: 1.25rem 0 0; font-size: .8rem; color: var(--muted); }
+    .site-footer { padding: 2rem 0 2.5rem; border-top: 1px solid #23232e; color: #b9b9c4; font-size: .8rem; line-height: 1.6; }
+    .site-footer p { margin: 0; } .site-footer .name { color: #fff; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <section class="hero" id="top">
+    <canvas id="glowBlur" aria-hidden="true"></canvas>
+    <canvas id="glow" aria-hidden="true"></canvas>
+    <header class="wrap top">
+      <a href="../index.html"><img src="../images/logo-girling-design.svg" alt="Girling Design, home" width="239" height="99"></a>
+      <a class="back" href="../index.html">&larr; Back to all work</a>
+    </header>
+    <div class="wrap hero__body">
+      <div class="hero__copy">
+        <p class="presented"><img src="../images/logo-brand-provenance.svg" alt="" width="179" height="232"><span>Built on BRND Standard, published by Brand Provenance</span></p>
+        <h1>Make your brand AI-ready</h1>
+        <p class="lead lead--strong">AI tools shouldn&rsquo;t dilute your brand.</p>
+        <p class="lead">Brand guidelines were written for people, not for machines. I create a customised BRND Standard for your business: plain-text files that people and AI tools can both read, so your voice, tone, visual logic and positioning stay yours wherever the work is done.</p>
+        <p class="lead">It doesn&rsquo;t train an AI on your brand. It gives whichever tool you choose clear context to work from.</p>
+        <div class="hero__cta">
+          <a class="btn" href="#enquire">Start an enquiry</a>
+          <div class="price">From $12,987 <small>+ GST. A starting point: we plan the price around what you need.</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="band wrap" aria-labelledby="get">
+      <p class="kicker">What you get</p>
+      <h2 id="get">Your brand, written so any AI can use it</h2>
+      <p class="sub">Your voice, tone, visual logic and positioning written into plain text files, organised by the shared BRND Standard structure. You keep your files. You keep control of what you share.</p>
+
+      <div class="postcard">
+        <div class="postcard__text">
+          <h3>Copywriting controls <span class="draft">Draft</span></h3>
+          <p>Tone of voice is only the surface. I map how your writing carries meaning (semantics) and what it does for the reader (pragmatics), and I set rules for syntax, because how sentences are built often matters most. Tone dials such as warmth, authority, brevity, energy and formality sit alongside them.</p>
+          <p>Within those rules sit writing mechanisms for the jobs your copy has to do: explaining complex ideas clearly, speaking with luxury or commercial sensitivity, holding energy without shouting, persuading, and meeting the reader instead of pushing at them.</p>
+          <p>Each place your writing appears has its own register. A press advertisement, a LinkedIn article and a TikTok caption don&rsquo;t sound the same, and they shouldn&rsquo;t. The files describe how your brand speaks on each surface.</p>
+        </div>
+        <div class="postcard__block" role="img" aria-label="Illustrative tone dial settings from minus one to plus one">
+          <p class="block__label">Tone dials, -1 to +1 (illustrative values)</p>
+          <div class="dials">
+          <div class="dial"><span class="dial__name">warmth</span><span class="dial__bar"><i style="left:50%;width:20%"></i></span><span class="dial__val">+0.4</span></div>
+          <div class="dial"><span class="dial__name">authority</span><span class="dial__bar"><i style="left:50%;width:30%"></i></span><span class="dial__val">+0.6</span></div>
+          <div class="dial"><span class="dial__name">formality</span><span class="dial__bar"><i style="left:50%;width:15%"></i></span><span class="dial__val">+0.3</span></div>
+          <div class="dial"><span class="dial__name">wit</span><span class="dial__bar"><i style="left:40%;width:10%"></i></span><span class="dial__val">-0.2</span></div>
+          <div class="dial"><span class="dial__name">brevity</span><span class="dial__bar"><i style="left:50%;width:10%"></i></span><span class="dial__val">+0.2</span></div>
+          <div class="dial"><span class="dial__name">directness</span><span class="dial__bar"><i style="left:50%;width:15%"></i></span><span class="dial__val">+0.3</span></div>
+          <div class="dial"><span class="dial__name">energy</span><span class="dial__bar"><i style="left:50%;width:5%"></i></span><span class="dial__val">+0.1</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="postcard postcard--flip">
+        <div class="postcard__text">
+          <h3>Image mapping, where imagery matters <span class="draft">Draft</span></h3>
+          <p>A style can be described without showing a single image. Van Gogh and Michelangelo could paint the same subject and the descriptions would still be worlds apart: one is textured, directional and turbulent, the other smooth, modelled and composed. I build that kind of description for your imagery.</p>
+          <p>I also build a LUT (look-up table) file for your imagery. It maps lighting and camera lens choices, among other mechanisms, to numerical controls, so you can fine-tune the look of your images with numbers instead of guesswork.</p>
+          <p>Your image files stay where they are. The standard describes your imagery in plain language and can point to files when a workflow needs them. The image side of the standard is still being defined.</p>
+        </div>
+        <div class="postcard__block postcard__block--sand" role="img" aria-label="Illustration: two painters' styles described as dials from minus one to plus one, with no images">
+          <p class="block__label">Same subject, two styles, no images (illustrative)</p>
+          <div class="pairs">
+          <div class="pair"><span class="pair__name">surface texture</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:10%;width:40%"></i></span><span class="dial__val">-0.8</span></div></div>
+          <div class="pair"><span class="pair__name">line energy</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:40%"></i></span><span class="dial__val">+0.8</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:35%;width:15%"></i></span><span class="dial__val">-0.3</span></div></div>
+          <div class="pair"><span class="pair__name">form volume</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:25%;width:25%"></i></span><span class="dial__val">-0.5</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div></div>
+          <div class="pair"><span class="pair__name">tonal modelling</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:30%;width:20%"></i></span><span class="dial__val">-0.4</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div></div>
+          <div class="pair"><span class="pair__name">colour saturation</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:40%"></i></span><span class="dial__val">+0.8</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:50%;width:15%"></i></span><span class="dial__val">+0.3</span></div></div>
+          <div class="pair"><span class="pair__name">rhythm and movement</span><div class="pair__row"><span class="pair__who">VG</span><span class="dial__bar"><i class="" style="left:50%;width:45%"></i></span><span class="dial__val">+0.9</span></div><div class="pair__row"><span class="pair__who">M</span><span class="dial__bar"><i class="alt" style="left:40%;width:10%"></i></span><span class="dial__val">-0.2</span></div></div>
+          </div>
+          <p class="pair__legend"><b>VG</b> Van Gogh: impasto, directional, turbulent. <b>M</b> Michelangelo: sculptural, modelled, composed.</p>
+        </div>
+      </div>
+      <p class="sub" style="margin:0">Not everything is mapped. We start with the most pressing elements and plan the work, and the price, around your needs. There&rsquo;s no point mapping things you never use, or rarely use.</p>
+    </section>
+
+    <section class="band wrap" aria-labelledby="how">
+      <p class="kicker">How it works <span class="draft">Draft</span></p>
+      <h2 id="how">Three steps</h2>
+      <div class="steps" style="margin-top:1.5rem">
+        <div class="step"><h3>Context audit</h3><p>I review your existing guidelines, design assets and the channels you write for, and study the writing that has already worked well for you.</p></div>
+        <div class="step"><h3>Standard construction</h3><p>I write your voice, tone and visual logic into the BRND Standard structure.</p></div>
+        <div class="step"><h3>Delivery and handover</h3><p>You receive plain-text files, ready to use as context in the AI tools you choose.</p></div>
+      </div>
+    </section>
+
+    <section class="band wrap" aria-labelledby="promise">
+      <p class="kicker">What to expect</p>
+      <h2 id="promise" class="visually-hidden-h">Commitments and limits</h2>
+      <div class="two">
+        <div class="card"><h3>What I commit to</h3>
+          <ul>
+            <li>Your files are plain text (Markdown and JSON in a folder), so any AI tool that reads natural language can use them.</li>
+            <li>They&rsquo;re portable. They&rsquo;re easy to move, and easy to edit for different tools and workflows.</li>
+            <li>The structure follows the open BRND Standard, and is built around ideas AI tools already work with, such as voice, tone, positioning and visual logic.</li>
+            <li>You keep your files, and you decide what you share.</li>
+          </ul></div>
+        <div class="card"><h3>What I can&rsquo;t promise</h3>
+          <ul>
+            <li>Identical results from every AI tool. Different tools read the same files slightly differently, and I don&rsquo;t control what AI companies do.</li>
+          </ul></div>
+        <div class="card card--wide"><h3>A standard that keeps moving</h3>
+          <p>The standard is never finished. Each version is a point in time, because the sands keep moving. The foundations are in place, and that matters more. Your business will change, and your files can change with it.</p>
+          <p style="margin-top:.75rem">The public version on GitHub is 0.1 alpha, and version 0.2 is nearly ready. The version I build with has been through a year of testing and is further along. <span class="draft">Draft</span></p></div>
+      </div>
+    </section>
+
+    <section class="band wrap" aria-labelledby="ledger">
+      <p class="kicker">Brand Ledger</p>
+      <h2 id="ledger" class="sr-only">Your Brand Ledger</h2>
+      <div class="postcard">
+        <div class="postcard__text">
+          <h3>Your Brand Ledger</h3>
+          <p>Your standard keeps evolving. When it becomes a new copy, the original is archived. The archive becomes part of your Brand Ledger.</p>
+          <p>Each archived copy is a record of who your company was at that point in time. You can return to it whenever you like.</p>
+          <p>Copy the files each season and make the adjustments, or once a year if that suits you better.</p>
+        </div>
+        <div class="postcard__block" style="min-height:28rem" role="img" aria-label="Illustration: a current quarterly brand standard above two archived earlier quarters">
+          <p class="block__label">Brand Ledger (illustration)</p>
+          <ol class="ledger">
+            <li class="ledger__now"><span class="ledger__dot"></span><span class="ledger__name">My Current Company BRND Standard (Q1-2027)</span><span class="ledger__tag">in use</span></li>
+            <li><span class="ledger__dot"></span><span class="ledger__name">My Company BRND Standard (Q4-2026)</span><span class="ledger__tag">archived</span></li>
+            <li><span class="ledger__dot"></span><span class="ledger__name">My Company BRND Standard (Q3-2026)</span><span class="ledger__tag">archived</span></li>
+          </ol>
+        </div>
+      </div>
+      <p class="sub" style="margin:0"><strong style="color:var(--fg)">Do you need to start from scratch each quarter?</strong> No. Sometimes the adjustments are simply refinements. Keeping the earlier copies archived lets you go back to something special that once worked and that you may have over-corrected.</p>
+    </section>
+
+    <section class="band wrap" aria-labelledby="invest">
+      <p class="kicker">Investment</p>
+      <h2 id="invest" class="visually-hidden-h">Investment and what I need</h2>
+      <div class="invest">
+        <div><h3>Price</h3><p class="price">From $12,987 <small>+ GST</small></p></div>
+        <div><h3>Timing <span class="draft">Draft</span></h3><p>To be confirmed.</p></div>
+        <div><h3>What I need from you <span class="draft">Draft</span></h3><p>Your existing brand guidelines, vector logos and representative campaign assets.</p></div>
+      </div>
+      <p class="sub" style="margin:1rem 0 0"><strong style="color:var(--fg)">Who it&rsquo;s for.</strong> Creative leaders, marketing directors and growing businesses using AI tools, agents or automated workflows for content and design. <span class="draft">Draft</span></p>
+    </section>
+
+    <section class="enquire wrap" id="enquire" aria-labelledby="enq">
+      <div class="enquire__grid">
+        <div class="enquire__form">
+          <h2 id="enq">Start an enquiry</h2>
+          <p class="sub">Tell me a little about your business and I&rsquo;ll reply personally. Or email <a href="mailto:studio@girlingdesign.com.au">studio@girlingdesign.com.au</a>.</p>
+          <form id="enquiry" novalidate>
+            <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <label>Your name<input type="text" name="name" autocomplete="name" required></label>
+            <label>Email<input type="email" name="email" autocomplete="email" required></label>
+            <label>Business<input type="text" name="business" autocomplete="organization"></label>
+            <label>Message<textarea name="message" required></textarea></label>
+            <button class="send" type="submit">Send enquiry</button>
+            <p class="status" id="status" role="status" aria-live="polite"></p>
+            <p class="fine">Your details are sent through Formspree, which delivers them to me. I only use them to reply to you.</p>
+          </form>
+        </div>
+        <div class="enquire__video">
+          <div class="vframe" id="video"><p>Video introduction coming soon.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="wrap">
+    <p class="name">Girling Design</p><p>M.R GIRLING &amp; N GIRLING</p><p>(ABN 76 181 584 319)</p>
+    <p style="margin-top:.75rem">BRND Standard is published by Brand Provenance (ABN 26 126 026 394).</p>
+  </div></footer>
+<script>
+// Paste the Formspree form ID here (the part after /f/ in the endpoint). Until then the form shows an email fallback.
+const FORMSPREE_ID = '';
+const SUBJECT = 'Enquiry: Make your brand AI-ready';
+// Paste the YouTube video ID (the part after v= or /shorts/) to show the vertical video beside the form.
+const YOUTUBE_ID = '';
+if (YOUTUBE_ID) {
+  const f = document.getElementById('video'), i = document.createElement('iframe');
+  i.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(YOUTUBE_ID) + '?rel=0&playsinline=1';
+  i.title = 'Video introduction'; i.loading = 'lazy'; i.allow = 'encrypted-media; picture-in-picture; fullscreen'; i.allowFullscreen = true;
+  f.textContent = ''; f.classList.add('is-live'); f.appendChild(i);
+}
+const form = document.getElementById('enquiry'), status = document.getElementById('status');
+const btn = form.querySelector('button.send');
+if (!FORMSPREE_ID) { btn.disabled = true; status.textContent = 'The form is not connected yet. Please email studio@girlingdesign.com.au.'; }
+form.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!FORMSPREE_ID) { return; }
+  if (!form.reportValidity()) { return; }
+  btn.disabled = true; status.textContent = 'Sending\u2026';
+  const data = new FormData(form); data.append('_subject', SUBJECT); data.append('offer', 'Make your brand AI-ready');
+  try {
+    const r = await fetch('https://formspree.io/f/' + encodeURIComponent(FORMSPREE_ID), { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+    if (r.ok) { form.reset(); status.textContent = 'Thank you. Your enquiry has been sent, and I will reply soon.'; }
+    else { status.textContent = 'Sorry, that did not send. Please email studio@girlingdesign.com.au.'; }
+  } catch (err) { status.textContent = 'Sorry, that did not send. Please email studio@girlingdesign.com.au.'; }
+  btn.disabled = false;
+});
+
+// Glowing form (from index10-2.html), drawn at twice the original size: radius is 0.48 of the shorter side (was 0.24).
+// The original glow came from a shadow blur on every line, which is very slow on some computers (a few frames a second).
+// Here the lines are drawn sharp, then one half-size copy is blurred by the browser's compositor to make the glow.
+(function () {
+  const hero = document.querySelector('.hero'), canvas = document.getElementById('glow'), ctx = canvas.getContext('2d');
+  const blurCanvas = document.getElementById('glowBlur'), bctx = blurCanvas.getContext('2d');
+  const colors = ['#d5248c', '#f251a1', '#a41c1c', '#ca4c23', '#fc9d43', '#5e70d0'];
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Segment spacing shrinks in proportion to the radius so curves stay as smooth as the original.
+  const RADIUS_K = 0.48, STEP = 0.01 * (0.24 / RADIUS_K);
+  let lines = 44; const MIN_LINES = 14;
+  let w, h, cx, cy, radius, bw, bh, frame = 0, running = false, visible = true, last = 0, acc = 0, n = 0;
+  function size() {
+    const r = hero.getBoundingClientRect();
+    w = Math.round(r.width); h = Math.round(r.height); canvas.width = w; canvas.height = h;
+    bw = Math.max(1, w >> 1); bh = Math.max(1, h >> 1); blurCanvas.width = bw; blurCanvas.height = bh;
+    cx = w * (w > 760 ? 0.66 : 0.5); cy = h * 0.5; radius = Math.min(w, h) * RADIUS_K;
+  }
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    const g = ctx.createRadialGradient(cx, cy, radius * 0.6, cx, cy, radius * 2.2);
+    g.addColorStop(0, 'rgba(255, 160, 180, 0.04)'); g.addColorStop(0.5, 'rgba(100, 40, 60, 0.01)'); g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.globalAlpha = 1; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, radius * 2.2, 0, Math.PI * 2); ctx.fill();
+    ctx.lineWidth = 1.3; ctx.globalAlpha = 0.34;
+    for (let i = 0; i < lines; i++) {
+      ctx.beginPath();
+      for (let a = 0; a <= Math.PI * 2; a += STEP) {
+        ctx.lineTo(cx + radius * Math.cos(a + frame * 0.002 + i * 0.03) * Math.sin(a * 3 + i * 0.1),
+                   cy + radius * Math.sin(a + frame * 0.002 + i * 0.02) * Math.cos(a * 2.5));
+      }
+      ctx.strokeStyle = colors[i % colors.length]; ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    bctx.clearRect(0, 0, bw, bh); bctx.drawImage(canvas, 0, 0, bw, bh);
+  }
+  // Motion follows real time (60 steps a second, as in the original). If frames are slow, lines are removed (never added back).
+  function loop(t) {
+    if (!running) return;
+    if (last) {
+      const dt = t - last; frame += Math.min(dt / 16.667, 3); acc += dt; n++;
+      if (n === 40) { if (acc / n > 24 && lines > MIN_LINES) { lines = Math.max(MIN_LINES, Math.floor(lines * 0.7)); } acc = 0; n = 0; }
+    } else { frame += 1; }
+    last = t; draw(); requestAnimationFrame(loop);
+  }
+  function start() { if (running || reduce || !visible || document.hidden) return; running = true; last = 0; requestAnimationFrame(loop); }
+  function stop() { running = false; }
+  size(); draw();
+  if (!reduce) {
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; visible ? start() : stop(); }).observe(hero);
+    document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+    start();
+  }
+  new ResizeObserver(() => { size(); draw(); }).observe(hero);
+})();
+
+// Long postcard text is held to the height of its coloured block, with a Read more button to continue (wide screens only).
+(function () {
+  const wide = window.matchMedia('(min-width: 52.01rem)');
+  const cards = [...document.querySelectorAll('.postcard')].map((pc, i) => {
+    const text = pc.querySelector('.postcard__text'), block = pc.querySelector('.postcard__block');
+    const clip = document.createElement('div'); clip.className = 'pc-clip'; clip.id = 'pc-clip-' + i;
+    while (text.firstChild) { clip.appendChild(text.firstChild); }
+    text.appendChild(clip);
+    const more = document.createElement('button'); more.type = 'button'; more.className = 'pc-more'; more.hidden = true;
+    more.setAttribute('aria-controls', clip.id); more.setAttribute('aria-expanded', 'false'); more.textContent = 'Read more';
+    text.appendChild(more);
+    const c = { block, clip, more, expanded: false, limit: 0 };
+    more.addEventListener('click', () => { c.expanded = !c.expanded; apply(c); });
+    return c;
+  });
+  function apply(c) {
+    c.more.setAttribute('aria-expanded', c.expanded ? 'true' : 'false'); c.more.textContent = c.expanded ? 'Read less' : 'Read more';
+    c.clip.classList.toggle('is-clipped', !c.expanded); c.clip.style.maxHeight = c.expanded ? 'none' : c.limit + 'px';
+  }
+  function fit(c) {
+    c.clip.style.maxHeight = 'none'; c.clip.classList.remove('is-clipped');
+    if (!wide.matches) { c.more.hidden = true; return; }
+    c.limit = Math.round(c.block.getBoundingClientRect().height) - 56;
+    if (c.clip.scrollHeight > c.limit + 8) { c.more.hidden = false; apply(c); } else { c.more.hidden = true; }
+  }
+  const run = () => cards.forEach(fit);
+  run(); window.addEventListener('resize', run); window.addEventListener('load', run);
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(run); }
+})();
+</script>
+</body>
+</html>
