@@ -32,7 +32,7 @@
     .presented__own { font-size: .85rem; color: var(--muted); }
     section[aria-labelledby="get"] .postcard:last-of-type { margin-bottom: 0; }
     .band .postcard + .sub { margin: calc(1.5rem - var(--space)) 0 var(--space); }
-    .band h2 + .steps, .band h2 + .two, .band h2 + .invest { margin-top: 2rem; }
+    .band h2 + .steps, .band h2 + .two, .band h2 + .invest, .band h2 + .tiles2 { margin-top: 2rem; }
     .tiles2 { display: grid; gap: 2.75rem; }
     @media (min-width: 52.01rem) { .tiles2 { grid-template-columns: 1fr 1fr; } }
     .tile { padding: 2rem; border-radius: 1rem; background: var(--sand); color: var(--ink); }
@@ -155,6 +155,9 @@
     .status { margin: 1rem 0 0; min-height: 1.5em; font-size: .9rem; }
     .fine { margin: 1.25rem 0 0; font-size: .8rem; color: var(--muted); }
     .site-footer { padding: 2.5rem 0 3rem; background: #2f3033; color: #b9b9c4; font-size: .8rem; line-height: 1.6; }
+    .site-footer__logos { display: flex; align-items: center; gap: 3rem; margin-bottom: 1.75rem; }
+    .site-footer__logos img { height: 3.25rem; width: auto; display: block; }
+    .site-footer__logos img.site-footer__bp { height: 4.5rem; }
     .site-footer p { margin: 0; } .site-footer .name { color: #fff; font-weight: 700; }
   </style>
 </head>
@@ -289,6 +292,29 @@
       </div>
     </section>
 
+    <section class="band wrap" aria-labelledby="use">
+      <p class="kicker">After delivery <span class="draft">Draft</span></p>
+      <h2 id="use">Using your standard</h2>
+      <div class="tiles2">
+        <div class="tile">
+          <h3>Give it to your AI tools</h3>
+          <p>Add the files to the project or knowledge area of the AI tool you use, paste the relevant ones into its instructions, or point it at the folder. Retrieval systems can read them too.</p>
+        </div>
+        <div class="tile">
+          <h3>Share only what a task needs</h3>
+          <p>Writing tasks need the voice and register files. Image tasks need the image LUT. You decide what each tool sees.</p>
+        </div>
+        <div class="tile">
+          <h3>Keep people in charge</h3>
+          <p>The standard doesn&rsquo;t act on its own. It gives your tools clear context to work from, and your people still review and approve what they produce.</p>
+        </div>
+        <div class="tile">
+          <h3>Refresh it each season</h3>
+          <p>Copy the files, make the adjustments, and archive the earlier copy in your Brand Ledger.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="band wrap" aria-labelledby="invest">
       <p class="kicker">Investment</p>
       <h2 id="invest" class="visually-hidden-h">Investment and what I need</h2>
@@ -341,6 +367,10 @@
   </main>
 
   <footer class="site-footer"><div class="wrap">
+    <div class="site-footer__logos">
+      <img src="../images/logo-girling-design.svg" alt="Girling Design" width="239" height="99">
+      <img class="site-footer__bp" src="../images/logo-brand-provenance.svg" alt="Brand Provenance" width="179" height="232">
+    </div>
     <p class="name">Girling Design</p><p>M.R GIRLING &amp; N GIRLING</p><p>(ABN 76 181 584 319)</p>
     <p style="margin-top:.75rem">BRND Standard is published by Brand Provenance (ABN 26 126 026 394).</p>
   </div></footer>
