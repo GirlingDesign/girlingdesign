@@ -353,7 +353,48 @@ function initJumpReveal() {
     });
 }
 
+function initBannerParallax() {
+    const desktop = window.matchMedia("(min-width: 900px)");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const banners = Array.from(document.querySelectorAll(".page-opening, .image-callout"))
+        .map((section) => ({
+            section,
+            image: section.querySelector(".page-opening__image, .image-callout__image")
+        }))
+        .filter((item) => item.image);
+    if (banners.length === 0) return;
+
+    let frame = 0;
+    function update() {
+        frame = 0;
+        const enabled = desktop.matches && !reducedMotion.matches;
+        banners.forEach(({ section, image }) => {
+            if (!enabled) {
+                section.classList.remove("is-parallax");
+                image.style.removeProperty("--parallax-offset");
+                return;
+            }
+            section.classList.add("is-parallax");
+            const rect = section.getBoundingClientRect();
+            const distance = window.innerHeight / 2 - (rect.top + rect.height / 2);
+            const limit = Math.min(56, Math.max(20, rect.height * 0.18));
+            const offset = Math.max(-limit, Math.min(limit, distance * 0.12));
+            image.style.setProperty("--parallax-offset", offset.toFixed(1) + "px");
+        });
+    }
+    function schedule() {
+        if (!frame) frame = window.requestAnimationFrame(update);
+    }
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule, { passive: true });
+    if (desktop.addEventListener) desktop.addEventListener("change", schedule);
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener("change", schedule);
+    update();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    initBannerParallax();
     renderHeader();
     renderFooter();
     initGalleryFilter();

@@ -171,7 +171,7 @@ a:hover { color: var(--aqua-text); }
 
 .page-opening { position: relative; background: var(--navy-deep); color: var(--white); overflow: hidden; isolation: isolate; }
 .page-opening__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; z-index: -2; }
-.page-opening__shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(21,38,74,.92) 0%, rgba(21,38,74,.78) 55%, rgba(21,38,74,.35) 100%); }
+.page-opening__shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgba(21,38,74,.688) 0%, rgba(21,38,74,.544) 55%, rgba(21,38,74,.224) 100%); }
 .page-opening__content { padding: 72px 0 80px; }
 .page-opening h1 { color: var(--white); max-width: 18ch; }
 .page-opening p { color: #eef3fb; font-size: 1.15rem; }
@@ -292,9 +292,25 @@ a:hover { color: var(--aqua-text); }
 
 .image-callout { position: relative; isolation: isolate; color: var(--white); overflow: hidden; background: var(--navy-deep); }
 .image-callout__image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; z-index: -2; }
+
+/* Stronger banner parallax: desktop only; static for reduced motion and smaller screens. */
+.page-opening.is-parallax .page-opening__image,
+.image-callout.is-parallax .image-callout__image {
+    inset: -18% 0; height: 136%;
+    transform: translate3d(0, var(--parallax-offset, 0px), 0);
+    will-change: transform;
+}
+@media (max-width: 899px), (prefers-reduced-motion: reduce) {
+    .page-opening.is-parallax .page-opening__image,
+    .image-callout.is-parallax .image-callout__image {
+        inset: 0; height: 100%; transform: none; will-change: auto;
+    }
+}
 .image-callout__shade { position: absolute; inset: 0; background: rgba(21, 38, 74, .82); z-index: -1; }
+.image-callout--soft-tint .image-callout__shade { background: linear-gradient(90deg, rgba(0, 117, 58, .90) 0%, rgba(0, 117, 58, .63) 55%, rgba(0, 117, 58, .39) 100%); }
 .image-callout__content { padding: 64px 0; }
 .image-callout h2 { color: var(--white); }
+.image-callout .eyebrow { color: #8fe3f0; }
 .image-callout p { color: #eef3fb; font-size: 1.1rem; }
 
 .steps-grid { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
@@ -334,7 +350,7 @@ a:hover { color: var(--aqua-text); }
 .profile { background: var(--white); border: 1px solid var(--line); border-top: 5px solid var(--green); border-radius: var(--radius); padding: 26px; }
 .profile__role { color: var(--aqua-text); font-weight: 700; margin-bottom: .8em; }
 .profile__photo { margin: -26px -26px 20px; overflow: hidden; border-radius: 3px 3px 0 0; }
-.profile__photo img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.profile__photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center top; }
 .profile__more h4 { margin: 1.2em 0 .5em; color: var(--navy); }
 .profile__more h5 { margin: 1em 0 .3em; color: var(--ink); font-size: 1rem; }
 .profile__list { margin: 0 0 1em; padding-left: 1.2em; }
@@ -409,7 +425,7 @@ a:hover { color: var(--aqua-text); }
 
 /* ---- Footer -------------------------------------------------------------- */
 
-.site-footer { background: var(--navy-deep); color: #dbe5f5; margin-top: 0; border-top: 6px solid var(--green); }
+.site-footer { background-color: var(--navy-deep); background-image: linear-gradient(rgba(21, 38, 74, .88), rgba(21, 38, 74, .88)), url("images/decorative-images/vehicle-2.jpg"); background-position: center, center 56%; background-size: cover, cover; background-repeat: no-repeat, no-repeat; color: #dbe5f5; margin-top: 0; border-top: 6px solid var(--green); }
 .site-footer__inner { width: min(100% - 2 * var(--gutter), var(--container)); margin-inline: auto; padding: 48px 0 28px; display: grid; gap: 32px; }
 @media (min-width: 900px) { .site-footer__inner { grid-template-columns: 1.2fr 2fr; } .site-footer__legal { grid-column: 1 / -1; } }
 .site-footer a { color: #dbe5f5; }
