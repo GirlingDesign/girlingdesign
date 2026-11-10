@@ -222,6 +222,8 @@ a:hover { color: var(--aqua-text); }
 .button:hover { background: var(--navy-deep); color: var(--white); border-color: var(--navy-deep); }
 .button--accent { background: var(--green); border-color: var(--green); color: var(--navy-deep); }
 .button--accent:hover { background: #00c25c; border-color: #00c25c; color: var(--navy-deep); }
+.button--navy { background: var(--navy); border-color: var(--navy); color: var(--white); }
+.button--navy:hover { background: var(--navy-deep); border-color: var(--navy-deep); color: var(--white); }
 .button--quiet { background: transparent; color: var(--white); border-color: var(--white); }
 .button--quiet:hover { background: var(--white); color: var(--navy); border-color: var(--white); }
 .button--outline { background: var(--white); color: var(--navy); }
@@ -307,6 +309,7 @@ a:hover { color: var(--aqua-text); }
     }
 }
 .image-callout__shade { position: absolute; inset: 0; background: rgba(21, 38, 74, .82); z-index: -1; }
+.image-callout--blue-tint .image-callout__shade { background: linear-gradient(90deg, rgba(0, 179, 204, .82) 0%, rgba(0, 179, 204, .66) 55%, rgba(0, 179, 204, .44) 100%); }
 .image-callout--soft-tint .image-callout__shade { background: linear-gradient(90deg, rgba(0, 117, 58, .90) 0%, rgba(0, 117, 58, .63) 55%, rgba(0, 117, 58, .39) 100%); }
 .image-callout__content { padding: 64px 0; }
 .image-callout h2 { color: var(--white); }
